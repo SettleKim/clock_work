@@ -1,0 +1,2301 @@
+fileFormatVersion: 2
+guid: b218b311d1167fc478c2e8db4f78be79
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6516423696377761616
+    second: gearbot_attack_sheet_0
+  - first:
+      213: -56957264432656589
+    second: gearbot_attack_sheet_1
+  - first:
+      213: 6184215673881259276
+    second: gearbot_attack_sheet_2
+  - first:
+      213: 8676088230360072167
+    second: gearbot_attack_sheet_3
+  - first:
+      213: -6352280410097543052
+    second: gearbot_attack_sheet_4
+  - first:
+      213: 4470726265906212041
+    second: gearbot_attack_sheet_5
+  - first:
+      213: 7951742271711213556
+    second: gearbot_attack_sheet_6
+  - first:
+      213: 3220397079283296220
+    second: gearbot_attack_sheet_7
+  - first:
+      213: -8179307688236541485
+    second: gearbot_attack_sheet_8
+  - first:
+      213: -5198975573991419762
+    second: gearbot_attack_sheet_9
+  - first:
+      213: -644523233599978961
+    second: gearbot_attack_sheet_10
+  - first:
+      213: 4252478124686586950
+    second: gearbot_attack_sheet_11
+  - first:
+      213: 3962408911753797743
+    second: gearbot_attack_sheet_12
+  - first:
+      213: -7563137125621521094
+    second: gearbot_attack_sheet_13
+  - first:
+      213: 723278531192327397
+    second: gearbot_attack_sheet_14
+  - first:
+      213: -1831747125829417893
+    second: gearbot_attack_sheet_15
+  - first:
+      213: -1045522264399457134
+    second: gearbot_attack_sheet_16
+  - first:
+      213: -3864337111209445351
+    second: gearbot_attack_sheet_17
+  - first:
+      213: 2134498020840659704
+    second: gearbot_attack_sheet_18
+  - first:
+      213: 6659713524232456550
+    second: gearbot_attack_sheet_19
+  - first:
+      213: -4862333928307562806
+    second: gearbot_attack_sheet_20
+  - first:
+      213: -4545180557151804783
+    second: gearbot_attack_sheet_21
+  - first:
+      213: -2220950606458810729
+    second: gearbot_attack_sheet_22
+  - first:
+      213: -3419156192110436262
+    second: gearbot_attack_sheet_23
+  - first:
+      213: 3836293400050198201
+    second: gearbot_attack_sheet_24
+  - first:
+      213: -5402498368230908672
+    second: gearbot_attack_sheet_25
+  - first:
+      213: 3202271033102434867
+    second: gearbot_attack_sheet_26
+  - first:
+      213: -5838810584283852294
+    second: gearbot_attack_sheet_27
+  - first:
+      213: -7819134099718793439
+    second: gearbot_attack_sheet_28
+  - first:
+      213: 842490582333497124
+    second: gearbot_attack_sheet_29
+  - first:
+      213: 5927236686146784493
+    second: gearbot_attack_sheet_30
+  - first:
+      213: 6870552001413507341
+    second: gearbot_attack_sheet_31
+  - first:
+      213: 6369283544837177209
+    second: gearbot_attack_sheet_32
+  - first:
+      213: 7994531009224872919
+    second: gearbot_attack_sheet_33
+  - first:
+      213: 2779354687204859797
+    second: gearbot_attack_sheet_34
+  - first:
+      213: -4509461176546788978
+    second: gearbot_attack_sheet_35
+  - first:
+      213: 5928261986385462329
+    second: gearbot_attack_sheet_36
+  - first:
+      213: -5280866351971730308
+    second: gearbot_attack_sheet_37
+  - first:
+      213: -8878207466285623872
+    second: gearbot_attack_sheet_38
+  - first:
+      213: 4938416027797474025
+    second: gearbot_attack_sheet_39
+  - first:
+      213: 2194025255549800183
+    second: gearbot_attack_sheet_40
+  - first:
+      213: -599305887226323016
+    second: gearbot_attack_sheet_41
+  - first:
+      213: -8995376482286704110
+    second: gearbot_attack_sheet_42
+  - first:
+      213: -2977195262070649865
+    second: gearbot_attack_sheet_43
+  - first:
+      213: -1995672425487669848
+    second: gearbot_attack_sheet_44
+  - first:
+      213: -775967915009846884
+    second: gearbot_attack_sheet_45
+  - first:
+      213: -7866705477117311882
+    second: gearbot_attack_sheet_46
+  - first:
+      213: 2942494925710254178
+    second: gearbot_attack_sheet_47
+  - first:
+      213: 2010108324025504471
+    second: gearbot_attack_sheet_48
+  - first:
+      213: 316921986890583180
+    second: gearbot_attack_sheet_49
+  - first:
+      213: 5688421653844857612
+    second: gearbot_attack_sheet_50
+  - first:
+      213: -7154599186423753050
+    second: gearbot_attack_sheet_51
+  - first:
+      213: -9216682209089345506
+    second: gearbot_attack_sheet_52
+  - first:
+      213: -8898207083771264898
+    second: gearbot_attack_sheet_53
+  - first:
+      213: -5647289173638186972
+    second: gearbot_attack_sheet_54
+  - first:
+      213: 8190630002251043655
+    second: gearbot_attack_sheet_55
+  - first:
+      213: 4902387747086180268
+    second: gearbot_attack_sheet_56
+  - first:
+      213: -252309189236239902
+    second: gearbot_attack_sheet_57
+  - first:
+      213: -5272184747162842005
+    second: gearbot_attack_sheet_58
+  - first:
+      213: -8949025014710430887
+    second: gearbot_attack_sheet_59
+  - first:
+      213: -4592541500672731430
+    second: gearbot_attack_sheet_60
+  - first:
+      213: 8415084304967109209
+    second: gearbot_attack_sheet_61
+  - first:
+      213: -2893871253548518444
+    second: gearbot_attack_sheet_62
+  - first:
+      213: 2304312723558956560
+    second: gearbot_attack_sheet_63
+  - first:
+      213: -214944711955679675
+    second: gearbot_attack_sheet_64
+  - first:
+      213: 6165562378780250748
+    second: gearbot_attack_sheet_65
+  - first:
+      213: -5630492991170575476
+    second: gearbot_attack_sheet_66
+  - first:
+      213: 4215363430217634194
+    second: gearbot_attack_sheet_67
+  - first:
+      213: -3216412116563952453
+    second: gearbot_attack_sheet_68
+  - first:
+      213: -462317988341669971
+    second: gearbot_attack_sheet_69
+  - first:
+      213: 7503514249931186885
+    second: gearbot_attack_sheet_70
+  - first:
+      213: -8100529365825368395
+    second: gearbot_attack_sheet_71
+  - first:
+      213: -7733660137599256676
+    second: gearbot_attack_sheet_72
+  - first:
+      213: 579796249813813366
+    second: gearbot_attack_sheet_73
+  - first:
+      213: 2949893408543801889
+    second: gearbot_attack_sheet_74
+  - first:
+      213: 2712284446098970904
+    second: gearbot_attack_sheet_75
+  - first:
+      213: 2933109588569868305
+    second: gearbot_attack_sheet_76
+  - first:
+      213: -6493034223339324381
+    second: gearbot_attack_sheet_77
+  - first:
+      213: 718351774955031761
+    second: gearbot_attack_sheet_78
+  - first:
+      213: 7360414929459984937
+    second: gearbot_attack_sheet_79
+  - first:
+      213: -1080879627288928530
+    second: gearbot_attack_sheet_80
+  - first:
+      213: -3857905150640989647
+    second: gearbot_attack_sheet_81
+  - first:
+      213: -5373090770260820552
+    second: gearbot_attack_sheet_82
+  - first:
+      213: 6768546297429554658
+    second: gearbot_attack_sheet_83
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 220
+        width: 21
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05fc88c83dcfe6a50800000000000000
+      internalID: 6516423696377761616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_1
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 220
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33f0d167ba5a53ff0800000000000000
+      internalID: -56957264432656589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_2
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 220
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0d6818d36fb2d550800000000000000
+      internalID: 6184215673881259276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 219
+        width: 6
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ef3f821748a76870800000000000000
+      internalID: 8676088230360072167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 221
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47896727f9a28d7a0800000000000000
+      internalID: -6352280410097543052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 220
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cc29571ad53b0e30800000000000000
+      internalID: 4470726265906212041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_6
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 219
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f7fdca47734a5e60800000000000000
+      internalID: 7951742271711213556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 211
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd7e26ac41621bc20800000000000000
+      internalID: 3220397079283296220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_8
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 220
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d91a0e4ef24d7e80800000000000000
+      internalID: -8179307688236541485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_9
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 220
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e801f44c24789d7b0800000000000000
+      internalID: -5198975573991419762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_10
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 220
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2289cba8813e07f0800000000000000
+      internalID: -644523233599978961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_11
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 220
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6443015e256d30b30800000000000000
+      internalID: 4252478124686586950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_12
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 210
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f606de759ed4df630800000000000000
+      internalID: 3962408911753797743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_13
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 220
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a35a2cffad65a0790800000000000000
+      internalID: -7563137125621521094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_14
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 220
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ec8265fdf9990a00800000000000000
+      internalID: 723278531192327397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_15
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 133
+        width: 73
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b54489ea1b35496e0800000000000000
+      internalID: -1831747125829417893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_16
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 219
+        width: 15
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29455b93a0f8d71f0800000000000000
+      internalID: -1045522264399457134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_17
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 224
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 918700a1fdd1f5ac0800000000000000
+      internalID: -3864337111209445351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_18
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 134
+        width: 80
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fa5bf114a24f9d10800000000000000
+      internalID: 2134498020840659704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_19
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 223
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6698db56a2e0c6c50800000000000000
+      internalID: 6659713524232456550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_20
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 134
+        width: 78
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac6e5efcd05858cb0800000000000000
+      internalID: -4862333928307562806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_21
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 211
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19264fa5d564ce0c0800000000000000
+      internalID: -4545180557151804783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_22
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 134
+        width: 78
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79e8556c0399d21e0800000000000000
+      internalID: -2220950606458810729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_23
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 134
+        width: 86
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a502ea90f87bc80d0800000000000000
+      internalID: -3419156192110436262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_24
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 134
+        width: 59
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b6ea2495804d3530800000000000000
+      internalID: 3836293400050198201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_25
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 186
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00d18f59b587605b0800000000000000
+      internalID: -5402498368230908672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_26
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 161
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 332089ac980c07c20800000000000000
+      internalID: 3202271033102434867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_27
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 145
+        width: 17
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af158fc75b068fea0800000000000000
+      internalID: -5838810584283852294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_28
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 164
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1271e1fb6fadc7390800000000000000
+      internalID: -7819134099718793439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_29
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 162
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42f999e88b021bb00800000000000000
+      internalID: 842490582333497124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_30
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 147
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dec4179bc56c14250800000000000000
+      internalID: 5927236686146784493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_31
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 143
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d09e91fb4aa195f50800000000000000
+      internalID: 6870552001413507341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_32
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 148
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97fb2cb53ad346850800000000000000
+      internalID: 6369283544837177209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_33
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 129
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d391b6989742fe60800000000000000
+      internalID: 7994531009224872919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_34
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 129
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59f99a3cc50429620800000000000000
+      internalID: 2779354687204859797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_35
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 133
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e89738bb3fc2b61c0800000000000000
+      internalID: -4509461176546788978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_36
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 135
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93405f90eda654250800000000000000
+      internalID: 5928261986385462329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_37
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 99
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7c7968380896b6b0800000000000000
+      internalID: -5280866351971730308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_38
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 96
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c513d129554ac480800000000000000
+      internalID: -8878207466285623872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_39
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 96
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9eac6f16637c88440800000000000000
+      internalID: 4938416027797474025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_40
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 101
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fe0841785eb27e10800000000000000
+      internalID: 2194025255549800183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_41
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 97
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bf13188876dea7f0800000000000000
+      internalID: -599305887226323016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_42
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 101
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21ae568bfb00a2380800000000000000
+      internalID: -8995376482286704110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_43
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 95
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fb8d49dea0eea6d0800000000000000
+      internalID: -2977195262070649865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_44
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 103
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a5e3c6a082fd44e0800000000000000
+      internalID: -1995672425487669848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_45
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 96
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c91dcb4ea453b35f0800000000000000
+      internalID: -775967915009846884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_46
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 98
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6748dc35c09d3d290800000000000000
+      internalID: -7866705477117311882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_47
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 96
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26069508b87d5d820800000000000000
+      internalID: 2942494925710254178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_48
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 95
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d29895eed655eb10800000000000000
+      internalID: 2010108324025504471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_49
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 96
+        width: 20
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8ccf123edee56400800000000000000
+      internalID: 316921986890583180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_50
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 96
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c03101a0b5551fe40800000000000000
+      internalID: 5688421653844857612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_51
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 96
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a6d9e652f1c5bc90800000000000000
+      internalID: -7154599186423753050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_52
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 84
+        width: 12
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e182197ec54c71080800000000000000
+      internalID: -9216682209089345506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_53
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 4
+        width: 76
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7003f15dc7338480800000000000000
+      internalID: -8898207083771264898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_54
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 101
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 428f26dca6cc0a1b0800000000000000
+      internalID: -5647289173638186972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_55
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 96
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74394da5796faa170800000000000000
+      internalID: 8190630002251043655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_56
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 99
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: caf9c489ea7c80440800000000000000
+      internalID: 4902387747086180268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_57
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 96
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e1d102112e9f7cf0800000000000000
+      internalID: -252309189236239902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_58
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 95
+        width: 25
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6c402bd7ef65d6b0800000000000000
+      internalID: -5272184747162842005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_59
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 99
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9539910c92daec380800000000000000
+      internalID: -8949025014710430887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_60
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 96
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad6992466d30440c0800000000000000
+      internalID: -4592541500672731430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_61
+      rect:
+        serializedVersion: 2
+        x: 367
+        y: 98
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95a8780279268c470800000000000000
+      internalID: 8415084304967109209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_62
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 96
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d3b6826d67e6d7d0800000000000000
+      internalID: -2893871253548518444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_63
+      rect:
+        serializedVersion: 2
+        x: 381
+        y: 83
+        width: 24
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01ef42b96309aff10800000000000000
+      internalID: 2304312723558956560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_64
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 100
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 546788d5cec540df0800000000000000
+      internalID: -214944711955679675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_65
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 98
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7295b3215a709550800000000000000
+      internalID: 6165562378780250748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_66
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 96
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8383f6c4787cd1b0800000000000000
+      internalID: -5630492991170575476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_67
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 95
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2915b41b4baff7a30800000000000000
+      internalID: 4215363430217634194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_68
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 96
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbc71f4a8320d53d0800000000000000
+      internalID: -3216412116563952453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_69
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 96
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daf1f933d348599f0800000000000000
+      internalID: -462317988341669971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_70
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 96
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c2ea3a7476d12860800000000000000
+      internalID: 7503514249931186885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_71
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 84
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5becb51d573259f80800000000000000
+      internalID: -8100529365825368395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_72
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 79
+        width: 12
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c973ccc54158ca490800000000000000
+      internalID: -7733660137599256676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_73
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4
+        width: 79
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67881480e99db0800800000000000000
+      internalID: 579796249813813366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_74
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 28
+        width: 75
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12205850d6020f820800000000000000
+      internalID: 2949893408543801889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_75
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 83
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 819db8b5558f3a520800000000000000
+      internalID: 2712284446098970904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_76
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 4
+        width: 77
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 118cff961af74b820800000000000000
+      internalID: 2933109588569868305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_77
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 29
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32cb76386cb14e5a0800000000000000
+      internalID: -6493034223339324381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_78
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 4
+        width: 48
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dc47f1222918f900800000000000000
+      internalID: 718351774955031761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_79
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 4
+        width: 72
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92ab1f59162752660800000000000000
+      internalID: 7360414929459984937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_80
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 4
+        width: 63
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eee9c7aa4b1fff0f0800000000000000
+      internalID: -1080879627288928530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_81
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 6
+        width: 14
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13ad4ee94b7f57ac0800000000000000
+      internalID: -3857905150640989647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_82
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 11
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bd7cac8962fe65b0800000000000000
+      internalID: -5373090770260820552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gearbot_attack_sheet_83
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 5
+        width: 38
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e5f2180ff4beed50800000000000000
+      internalID: 6768546297429554658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      gearbot_attack_sheet_0: 6516423696377761616
+      gearbot_attack_sheet_1: -56957264432656589
+      gearbot_attack_sheet_10: -644523233599978961
+      gearbot_attack_sheet_11: 4252478124686586950
+      gearbot_attack_sheet_12: 3962408911753797743
+      gearbot_attack_sheet_13: -7563137125621521094
+      gearbot_attack_sheet_14: 723278531192327397
+      gearbot_attack_sheet_15: -1831747125829417893
+      gearbot_attack_sheet_16: -1045522264399457134
+      gearbot_attack_sheet_17: -3864337111209445351
+      gearbot_attack_sheet_18: 2134498020840659704
+      gearbot_attack_sheet_19: 6659713524232456550
+      gearbot_attack_sheet_2: 6184215673881259276
+      gearbot_attack_sheet_20: -4862333928307562806
+      gearbot_attack_sheet_21: -4545180557151804783
+      gearbot_attack_sheet_22: -2220950606458810729
+      gearbot_attack_sheet_23: -3419156192110436262
+      gearbot_attack_sheet_24: 3836293400050198201
+      gearbot_attack_sheet_25: -5402498368230908672
+      gearbot_attack_sheet_26: 3202271033102434867
+      gearbot_attack_sheet_27: -5838810584283852294
+      gearbot_attack_sheet_28: -7819134099718793439
+      gearbot_attack_sheet_29: 842490582333497124
+      gearbot_attack_sheet_3: 8676088230360072167
+      gearbot_attack_sheet_30: 5927236686146784493
+      gearbot_attack_sheet_31: 6870552001413507341
+      gearbot_attack_sheet_32: 6369283544837177209
+      gearbot_attack_sheet_33: 7994531009224872919
+      gearbot_attack_sheet_34: 2779354687204859797
+      gearbot_attack_sheet_35: -4509461176546788978
+      gearbot_attack_sheet_36: 5928261986385462329
+      gearbot_attack_sheet_37: -5280866351971730308
+      gearbot_attack_sheet_38: -8878207466285623872
+      gearbot_attack_sheet_39: 4938416027797474025
+      gearbot_attack_sheet_4: -6352280410097543052
+      gearbot_attack_sheet_40: 2194025255549800183
+      gearbot_attack_sheet_41: -599305887226323016
+      gearbot_attack_sheet_42: -8995376482286704110
+      gearbot_attack_sheet_43: -2977195262070649865
+      gearbot_attack_sheet_44: -1995672425487669848
+      gearbot_attack_sheet_45: -775967915009846884
+      gearbot_attack_sheet_46: -7866705477117311882
+      gearbot_attack_sheet_47: 2942494925710254178
+      gearbot_attack_sheet_48: 2010108324025504471
+      gearbot_attack_sheet_49: 316921986890583180
+      gearbot_attack_sheet_5: 4470726265906212041
+      gearbot_attack_sheet_50: 5688421653844857612
+      gearbot_attack_sheet_51: -7154599186423753050
+      gearbot_attack_sheet_52: -9216682209089345506
+      gearbot_attack_sheet_53: -8898207083771264898
+      gearbot_attack_sheet_54: -5647289173638186972
+      gearbot_attack_sheet_55: 8190630002251043655
+      gearbot_attack_sheet_56: 4902387747086180268
+      gearbot_attack_sheet_57: -252309189236239902
+      gearbot_attack_sheet_58: -5272184747162842005
+      gearbot_attack_sheet_59: -8949025014710430887
+      gearbot_attack_sheet_6: 7951742271711213556
+      gearbot_attack_sheet_60: -4592541500672731430
+      gearbot_attack_sheet_61: 8415084304967109209
+      gearbot_attack_sheet_62: -2893871253548518444
+      gearbot_attack_sheet_63: 2304312723558956560
+      gearbot_attack_sheet_64: -214944711955679675
+      gearbot_attack_sheet_65: 6165562378780250748
+      gearbot_attack_sheet_66: -5630492991170575476
+      gearbot_attack_sheet_67: 4215363430217634194
+      gearbot_attack_sheet_68: -3216412116563952453
+      gearbot_attack_sheet_69: -462317988341669971
+      gearbot_attack_sheet_7: 3220397079283296220
+      gearbot_attack_sheet_70: 7503514249931186885
+      gearbot_attack_sheet_71: -8100529365825368395
+      gearbot_attack_sheet_72: -7733660137599256676
+      gearbot_attack_sheet_73: 579796249813813366
+      gearbot_attack_sheet_74: 2949893408543801889
+      gearbot_attack_sheet_75: 2712284446098970904
+      gearbot_attack_sheet_76: 2933109588569868305
+      gearbot_attack_sheet_77: -6493034223339324381
+      gearbot_attack_sheet_78: 718351774955031761
+      gearbot_attack_sheet_79: 7360414929459984937
+      gearbot_attack_sheet_8: -8179307688236541485
+      gearbot_attack_sheet_80: -1080879627288928530
+      gearbot_attack_sheet_81: -3857905150640989647
+      gearbot_attack_sheet_82: -5373090770260820552
+      gearbot_attack_sheet_83: 6768546297429554658
+      gearbot_attack_sheet_9: -5198975573991419762
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

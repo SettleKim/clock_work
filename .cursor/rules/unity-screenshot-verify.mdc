@@ -1,0 +1,45 @@
+---
+description: Unity 씬/스프라이트/플레이어 변경 후 Game View 스크린샷으로 시각 검증
+globs: Assets/**/*
+alwaysApply: true
+---
+
+# Unity 시각 검증 (스크린샷)
+
+Unity 에셋·씬·플레이어·전투·MCP 씬 변경을 **완료했다고 판단할 때**, 사용자에게 결과만 보고하기 전에 아래를 수행한다.
+
+## 전제
+
+- Unity Editor가 열려 있고 **MCP For Unity → Start Server** 가 켜져 있어야 한다.
+- MCP가 끊겨 있으면: 스크린샷 검증을 건너뛰고, Unity MCP 연결 후 재시도가 필요하다고 짧게 알린다.
+
+## 검증 절차
+
+1. `read_console`으로 **컴파일 에러 0** 확인.
+2. Play Mode가 아니면 `manage_editor` **play** → 1~2초 대기.
+3. `manage_camera` **screenshot** (`capture_source: game_view`, `include_image: true`) 으로 Game View 캡처.
+4. 스크린샷에서 최소 확인:
+   - **플레이어(기어봇)** 가 화면에 보이는가
+   - **바닥(Ground)** 이 배경과 구분되는가
+   - **테스트 몬스터** 등 요청된 오브젝트가 있는가
+   - 명백한 **누락·잘림·위치 이탈·스프라이트 null** 여부
+5. 문제가 있으면 **원인 수정** → Play **stop** 후 필요 시 재 **play** → **3~4단계 재실행** (최대 2회).
+6. 검증 후 Play Mode를 켠 상태였다면 **stop**으로 되돌린다 (사용자가 Play 중이 아니었다면).
+
+## 자주 나는 문제 → 조치
+
+| 증상 | 조치 |
+|------|------|
+| 캐릭터 안 보임 | `Player/Visual` SpriteRenderer·`PlayerGearbotVisual` 스프라이트 연결, `Resources/Gearbot` 로드, Play 중 씬 수정 불가 확인 |
+| 바닥만 보임 | Player 위치·카메라 orthographic size·sorting order 확인 |
+| MCP Play 중 modify 실패 | Play **stop** 후 씬 수정 |
+
+## 보고
+
+- 사용자 응답에 **스크린샷 검증 완료/미실행** 여부를 한 줄 포함한다.
+- MCP로 스크린샷을 못 찍었으면, 그 이유와 수동 확인 방법(Play 후 Game View)을 적는다.
+
+## 검증 생략 가능한 경우
+
+- 순수 질문·설명만 하고 코드/씬을 건드리지 않은 경우
+- 사용자가 "스크린샷 검증 하지 마"라고 명시한 경우
