@@ -2,6 +2,10 @@
 
 여기서 **처음부터 다시** 만드는 본편 게임 코드를 둡니다.
 
+## 문서
+
+- [이동 (Movement)](Docs/Movement.md) — 걷기·점프·갈고리 기획 및 구현 상태
+
 ## 현재 상태
 
 - 시작 씬: `Scenes/Game_Main.unity` (Build Settings 등록됨)
