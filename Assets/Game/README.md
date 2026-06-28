@@ -32,6 +32,39 @@ Game/
 1. `Game_Main.unity` 열기 (또는 Unity 재시작 후 Play)
 2. Console에 `Clock Work — 새 게임 시작` 로그 확인
 
+## 플레이어 아트 (`art/player/`)
+
+### 2026-06-29 — 스프라이트·Visual (임시)
+
+#### 프레임 크기 (기준)
+
+| 항목 | 값 |
+|------|-----|
+| **목표 프레임** | **225 × 324** px (임시 기준) |
+| **walk** | `tick - walk.png` 슬라이스 225×324 (`tick - walk_0`, `tick - walk_1`) |
+| **wait** | `tick - wait.png` 슬라이스 **420 × 575** (아직 walk와 크기 다름) |
+| **PPU** | 100 (walk 기준) |
+| **Animator** | `visual.controller` (Idle / Walk, `Speed` 파라미터) |
+
+#### wait → walk 키 맞추기 (420×575 → 225×324)
+
+Unity Import만으로 슬라이스 픽셀 리사이즈는 불가. 씬에서 맞출 때:
+
+| 방법 | 값 |
+|------|-----|
+| **Visual Scale (uniform, 키 높이 기준)** | **324 ÷ 575 ≈ 0.563** |
+| **Visual Scale (가로 225 기준)** | 225 ÷ 420 ≈ 0.536 |
+| **wait PNG PPU만 올리기** | 100 × (575÷324) ≈ **178** |
+
+> 추후 아트를 Photopea 등에서 **225×324**로 통일·재슬라이스 예정.
+
+#### 씬 구조 (`Game_Main`)
+
+- **`player` Transform = 발** (`PlayerMovement.feetAtTransform`, Capsule `Offset.y = Size.y × 0.5`)
+- **`player/Visual`** — SpriteRenderer + Animator + `PlayerCharacterVisual`
+- 루트 placeholder `SpriteRenderer`는 끔 (`GameBootstrap`)
+- Idle: `tick - wait_1`(右) / `tick - wait_0`(左) · Walk: `Speed > 0.05`
+
 ## Legacy와의 관계
 
 - `_Legacy` 코드는 **자동 참조되지 않음** (`Legacy.asmdef`)

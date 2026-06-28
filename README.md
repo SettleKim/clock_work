@@ -62,6 +62,15 @@ Unity로 할로우나이트 스타일 2D 메트로배니아 게임을 만드는 
 
 ---
 
+## 📅 2026-06-29 — 플레이어 Visual·스프라이트 (임시)
+
+- **목표 프레임:** 225 × 324 px (임시) — walk 슬라이스에 적용
+- **wait 슬라이스:** 420 × 575 → walk 키에 맞출 때 uniform **324/575 ≈ 0.563** (Visual Scale) 또는 wait PPU **≈178**
+- **Transform = 발** + `player/Visual` + `visual.controller` (Idle/Walk)
+- 상세: [Assets/Game/README.md](Assets/Game/README.md) → **플레이어 아트**
+
+---
+
 ## 📅 2026-06-02 — 프로젝트 구조 분리
 
 - `Assets/_Legacy/` — 기존 프로토타입(스크립트·씬·Resources·Input) 이동

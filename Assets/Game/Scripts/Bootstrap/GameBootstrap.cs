@@ -12,6 +12,22 @@ namespace ClockWork.Game
         void Awake()
         {
             Debug.Log(welcomeMessage);
+            EnsurePlayerCombat();
+        }
+
+        void EnsurePlayerCombat()
+        {
+            var player = GameObject.FindGameObjectWithTag("Player");
+            if (player == null)
+                return;
+
+            if (player.GetComponent<Health>() == null)
+                player.AddComponent<Health>();
+
+            if (player.GetComponent<PlayerFistCombat>() == null)
+                player.AddComponent<PlayerFistCombat>();
+
+            PlayerVisualSetup.EnsureAndConfigure(player);
         }
     }
 }

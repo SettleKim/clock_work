@@ -105,6 +105,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "GrappleCancel",
+                    "type": "Button",
+                    "id": "c9d0e1f2-a3b4-5c6d-7e8f-9a0b1c2d3e4f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "MenuToggle",
                     "type": "Button",
                     "id": "f6a7b8c9-d0e1-4f2a-3b4c-5d6e7f809a0b",
@@ -339,6 +348,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Grapple",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b9c0d1e2-f3a4-5678-9abc-def012345678",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "GrappleCancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c0d1e2f3-a4b5-6789-abcd-ef0123456789",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "GrappleCancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

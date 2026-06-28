@@ -26,6 +26,9 @@ namespace ClockWork.Game
         [SerializeField] float airJumpForce = 10f;
         [SerializeField] int maxAirJumps = 1;
 
+        [Header("Collider")]
+        [SerializeField] bool feetAtTransform = true;
+
         [Header("Ground Check")]
         [SerializeField] Transform groundCheck;
         [SerializeField] Vector2 groundCheckSize = new(0.55f, 0.08f);
@@ -35,6 +38,7 @@ namespace ClockWork.Game
         CapsuleCollider2D bodyCollider;
         PlayerInput playerInput;
         GrapplingHookController grapple;
+        PlayerCharacterVisual characterVisual;
         InputAction moveAction;
         InputAction jumpAction;
         SpriteRenderer spriteRenderer;
@@ -47,6 +51,7 @@ namespace ClockWork.Game
         bool wasGrounded;
 
         readonly Collider2D[] groundOverlapResults = new Collider2D[4];
+        ContactFilter2D groundContactFilter;
 
         public bool IsGrounded { get; private set; }
         public int FacingDirection => facingDirection;
@@ -57,7 +62,10 @@ namespace ClockWork.Game
             bodyCollider = GetComponent<CapsuleCollider2D>();
             playerInput = GetComponent<PlayerInput>();
             grapple = GetComponent<GrapplingHookController>();
-            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            characterVisual = GetComponentInChildren<PlayerCharacterVisual>();
+            spriteRenderer = characterVisual != null
+                ? characterVisual.GetComponent<SpriteRenderer>()
+                : GetComponentInChildren<SpriteRenderer>();
 
             moveAction = playerInput.actions["Move"];
             jumpAction = playerInput.actions["Jump"];
@@ -68,7 +76,69 @@ namespace ClockWork.Game
             rb.interpolation = RigidbodyInterpolation2D.Interpolate;
 
             EnsureGroundCheck();
+            if (feetAtTransform)
+                ApplyFeetPivotCollider();
             UpdateGroundCheckPosition();
+            ConfigureGroundContactFilter();
+        }
+
+        void Start()
+        {
+            if (characterVisual == null)
+                characterVisual = GetComponentInChildren<PlayerCharacterVisual>();
+        }
+
+#if UNITY_EDITOR
+        void OnValidate()
+        {
+            if (!feetAtTransform)
+                return;
+
+            if (bodyCollider == null)
+                bodyCollider = GetComponent<CapsuleCollider2D>();
+
+            ConfigureFeetPivotOffset();
+            UpdateGroundCheckPosition();
+        }
+#endif
+
+        void ConfigureFeetPivotOffset()
+        {
+            if (bodyCollider == null)
+                return;
+
+            float targetOffsetY = bodyCollider.size.y * 0.5f;
+            Vector2 offset = bodyCollider.offset;
+            if (Mathf.Approximately(offset.y, targetOffsetY))
+                return;
+
+            bodyCollider.offset = new Vector2(offset.x, targetOffsetY);
+        }
+
+        void ApplyFeetPivotCollider()
+        {
+            if (bodyCollider == null)
+                return;
+
+            Vector2 size = bodyCollider.size;
+            float halfHeight = size.y * 0.5f;
+            float targetOffsetY = halfHeight;
+
+            if (Mathf.Approximately(bodyCollider.offset.y, targetOffsetY))
+                return;
+
+            float oldFootLocalY = bodyCollider.offset.y - halfHeight;
+            float oldFootWorldY = transform.position.y + oldFootLocalY * transform.lossyScale.y;
+
+            bodyCollider.offset = new Vector2(bodyCollider.offset.x, targetOffsetY);
+            transform.position = new Vector3(transform.position.x, oldFootWorldY, transform.position.z);
+        }
+
+        void ConfigureGroundContactFilter()
+        {
+            groundContactFilter.useLayerMask = true;
+            groundContactFilter.SetLayerMask(groundLayers);
+            groundContactFilter.useTriggers = false;
         }
 
         void EnsureGroundCheck()
@@ -93,30 +163,37 @@ namespace ClockWork.Game
 
         void Update()
         {
-            if (grapple != null && grapple.IsActive)
-                return;
-
-            if (jumpAction.WasPressedThisFrame())
-                jumpBufferCounter = jumpBufferTime;
-            else
-                jumpBufferCounter -= Time.deltaTime;
-
-            jumpHeld = jumpAction.IsPressed();
-
-            if (jumpAction.WasReleasedThisFrame() && rb.linearVelocity.y > 0f)
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * jumpCutMultiplier);
+            bool blocksJump = grapple != null && grapple.IsActive && !grapple.AllowsPlayerJump;
+            bool blocksMovement = grapple != null && grapple.BlocksPlayerMovement;
 
             Vector2 moveInput = moveAction.ReadValue<Vector2>();
-            if (Mathf.Abs(moveInput.x) > 0.05f)
+
+            if (!blocksJump)
+            {
+                if (jumpAction.WasPressedThisFrame())
+                    jumpBufferCounter = jumpBufferTime;
+                else
+                    jumpBufferCounter -= Time.deltaTime;
+
+                jumpHeld = jumpAction.IsPressed();
+
+                if (jumpAction.WasReleasedThisFrame() && rb.linearVelocity.y > 0f)
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * jumpCutMultiplier);
+            }
+
+            if (!blocksMovement && Mathf.Abs(moveInput.x) > 0.05f)
                 facingDirection = moveInput.x > 0f ? 1 : -1;
 
-            UpdateVisualFacing();
+            if (characterVisual != null)
+                characterVisual.ApplyMovement(moveInput.x, !blocksMovement);
+            else if (!blocksMovement)
+                UpdateVisualFacing();
         }
 
         void FixedUpdate()
         {
-            if (grapple != null && grapple.IsActive)
-                return;
+            bool blocksJump = grapple != null && grapple.IsActive && !grapple.AllowsPlayerJump;
+            bool blocksMovement = grapple != null && grapple.BlocksPlayerMovement;
 
             IsGrounded = CheckGrounded();
 
@@ -130,7 +207,7 @@ namespace ClockWork.Game
 
             wasGrounded = IsGrounded;
 
-            if (jumpBufferCounter > 0f)
+            if (!blocksJump && jumpBufferCounter > 0f)
             {
                 if (coyoteCounter > 0f)
                 {
@@ -146,22 +223,34 @@ namespace ClockWork.Game
                 }
             }
 
-            Vector2 moveInput = moveAction.ReadValue<Vector2>();
-            float horizontalInput = moveInput.x;
-
-            bool preserveMomentum = grapple != null && grapple.ShouldPreserveLaunchMomentum;
-            if (preserveMomentum && Mathf.Abs(horizontalInput) > 0.05f)
-                grapple.ClearMomentumPreserve();
-
-            if (!preserveMomentum || Mathf.Abs(horizontalInput) > 0.05f)
+            if (!blocksMovement)
             {
-                float targetSpeed = horizontalInput * moveSpeed;
-                float speedDifference = targetSpeed - rb.linearVelocity.x;
-                float accelerationRate = IsGrounded
-                    ? Mathf.Abs(targetSpeed) > 0.01f ? groundAcceleration : groundDeceleration
-                    : airAcceleration;
-                float velocityChange = speedDifference * accelerationRate * Time.fixedDeltaTime;
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x + velocityChange, rb.linearVelocity.y);
+                Vector2 moveInput = moveAction.ReadValue<Vector2>();
+                float horizontalInput = moveInput.x;
+                float vx = rb.linearVelocity.x;
+
+                if (grapple != null && grapple.HasCarriedMomentum)
+                {
+                    vx = grapple.BleedHorizontalMomentum(
+                        moveSpeed,
+                        horizontalInput,
+                        Time.fixedDeltaTime,
+                        airAcceleration,
+                        groundAcceleration,
+                        groundDeceleration,
+                        IsGrounded);
+                    rb.linearVelocity = new Vector2(vx, rb.linearVelocity.y);
+                }
+                else if (Mathf.Abs(horizontalInput) > 0.05f)
+                {
+                    float targetSpeed = horizontalInput * moveSpeed;
+                    float speedDifference = targetSpeed - vx;
+                    float accelerationRate = IsGrounded
+                        ? Mathf.Abs(targetSpeed) > 0.01f ? groundAcceleration : groundDeceleration
+                        : airAcceleration;
+                    float velocityChange = speedDifference * accelerationRate * Time.fixedDeltaTime;
+                    rb.linearVelocity = new Vector2(vx + velocityChange, rb.linearVelocity.y);
+                }
             }
 
             if (rb.linearVelocity.y < 0f)
@@ -186,8 +275,8 @@ namespace ClockWork.Game
             if (groundCheck == null)
                 return false;
 
-            int count = Physics2D.OverlapBoxNonAlloc(
-                groundCheck.position, groundCheckSize, 0f, groundOverlapResults, groundLayers);
+            int count = Physics2D.OverlapBox(
+                groundCheck.position, groundCheckSize, 0f, groundContactFilter, groundOverlapResults);
 
             for (int i = 0; i < count; i++)
             {

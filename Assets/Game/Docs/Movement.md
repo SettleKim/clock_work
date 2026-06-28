@@ -82,7 +82,7 @@
   | **Momentum** | 노랑 | 플레이어→앵커 방향으로 관성 발사, 앵커 통과 시 로프 해제·관성 유지 |
 
 - **선택 흐름:** E → 슬로모 + 방향키로 포인트 선택 → E 확정 → 로프 스냅 → Anchor / Momentum 분기
-- **Momentum 해제 후:** x·y 관성 유지 (`momentumPreserveDuration`, 입력 시 일반 이동으로 복귀)
+- **Momentum 해제 후:** x·y 관성 유지 → `momentumBleedRate`로 walk 속도까지 감쇠, `gravityRestoreDuration`으로 중력 복구
 
 ### 기획 방향 (맵·능력과 연동)
 

@@ -8,11 +8,22 @@ namespace ClockWork.Game
     [RequireComponent(typeof(PlayerInput))]
     public class GrapplingHookController : MonoBehaviour
     {
+        public enum GrappleSelectionMode
+        {
+            Normal,
+            SlowMotion
+        }
+
         [Header("Selection")]
         [SerializeField] Transform hookOrigin;
         [SerializeField] float selectionRadius = 14f;
         [SerializeField] float slowMotionScale = 0.16f;
         [SerializeField] float directionSelectThreshold = 0.2f;
+
+        [Header("Selection Slow-Mo")]
+        [SerializeField] GrappleSelectionMode selectionMode = GrappleSelectionMode.Normal;
+        [SerializeField] bool slowMoUnlockedByFeature;
+        [SerializeField] Key debugToggleSlowMoKey = Key.G;
 
         [Header("Anchor Attach")]
         [SerializeField] float anchorAttachDuration = 0.18f;
@@ -25,7 +36,14 @@ namespace ClockWork.Game
         [SerializeField] float minLaunchSpeed = 24f;
         [SerializeField] float momentumPassRadius = 0.45f;
         [SerializeField] float momentumMaxDuration = 4f;
-        [SerializeField] float momentumPreserveDuration = 0.45f;
+        [Tooltip("앵커 통과 직후 full-speed 유지 시간. 0이면 즉시 감쇠 시작.")]
+        [SerializeField] float momentumPreserveDuration = 0.12f;
+        [Tooltip("관성 수평 속도가 walk 속도까지 줄어드는 속도 (units/s).")]
+        [SerializeField] float momentumBleedRate = 14f;
+        [Tooltip("walk 속도 대비 여유 비율. 이 이하로 내려오면 일반 이동으로 핸드오프.")]
+        [SerializeField] float momentumHandoffEpsilon = 0.12f;
+        [Tooltip("발사 중력 → 기본 중력 복구 시간.")]
+        [SerializeField] float gravityRestoreDuration = 0.35f;
 
         [Header("Visual")]
         [SerializeField] float ropeWidth = 0.07f;
@@ -39,6 +57,7 @@ namespace ClockWork.Game
         InputAction interactAction;
         InputAction moveAction;
         InputAction jumpAction;
+        InputAction cancelAction;
 
         GrapplePhase phase = GrapplePhase.Idle;
         GrapplePoint activePoint;
@@ -48,21 +67,159 @@ namespace ClockWork.Game
         Vector2 hookTip;
         Vector2 attachStartPosition;
         Vector2 launchVelocity;
-        Vector2 storedVelocity;
         Vector2 momentumAnchor;
         Vector2 momentumLaunchDirection;
         float phaseTimer;
         float momentumElapsed;
         bool momentumApproachingAnchor;
-        float momentumPreserveTimer;
+        float carriedHorizontalSpeed;
+        bool carriedMomentumActive;
+        float momentumCoastTimer;
+        float gravityBlendTimer;
+        bool gravityBlendActive;
+        bool selectionSlowMoActive;
         float defaultGravityScale;
         LineRenderer ropeLine;
 
         public bool IsActive => phase != GrapplePhase.Idle;
         public bool IsSelecting => phase == GrapplePhase.Selecting;
-        public bool ShouldPreserveLaunchMomentum => momentumPreserveTimer > 0f;
+        public bool BlocksPlayerMovement =>
+            phase == GrapplePhase.Snapping ||
+            phase == GrapplePhase.AnchorAttach ||
+            phase == GrapplePhase.AnchorHold ||
+            phase == GrapplePhase.MomentumLaunch;
+        public bool AllowsPlayerJump =>
+            phase == GrapplePhase.Selecting ||
+            phase == GrapplePhase.Snapping ||
+            phase == GrapplePhase.MomentumLaunch;
+        public bool ShouldPreserveLaunchMomentum => carriedMomentumActive;
+        public bool HasCarriedMomentum => carriedMomentumActive;
+        public GrappleSelectionMode CurrentSelectionMode => selectionMode;
 
-        public void ClearMomentumPreserve() => momentumPreserveTimer = 0f;
+        public void ClearMomentumPreserve() => EndCarriedMomentum();
+
+        /// <summary>
+        /// 그랩 관성 수평 속도 감쇠. PlayerMovement FixedUpdate에서 호출.
+        /// </summary>
+        public float BleedHorizontalMomentum(
+            float moveSpeed,
+            float horizontalInput,
+            float deltaTime,
+            float airAcceleration,
+            float groundAcceleration,
+            float groundDeceleration,
+            bool isGrounded)
+        {
+            if (!carriedMomentumActive)
+                return rb.linearVelocity.x;
+
+            float vx = rb.linearVelocity.x;
+
+            if (Mathf.Abs(horizontalInput) > 0.05f && Mathf.Abs(vx) > 0.01f
+                && Mathf.Sign(horizontalInput) != Mathf.Sign(vx))
+            {
+                EndCarriedMomentum();
+                return vx;
+            }
+
+            if (momentumCoastTimer > 0f)
+            {
+                momentumCoastTimer -= deltaTime;
+                carriedHorizontalSpeed = vx;
+
+                if (Mathf.Abs(horizontalInput) > 0.05f && Mathf.Sign(horizontalInput) == Mathf.Sign(vx))
+                {
+                    float targetSpeed = horizontalInput * moveSpeed;
+                    float accelerationRate = isGrounded
+                        ? Mathf.Abs(targetSpeed) > 0.01f ? groundAcceleration : groundDeceleration
+                        : airAcceleration;
+                    float velocityChange = (targetSpeed - vx) * accelerationRate * deltaTime;
+                    if (Mathf.Abs(vx + velocityChange) > Mathf.Abs(vx))
+                        vx += velocityChange;
+                }
+
+                carriedHorizontalSpeed = vx;
+                return vx;
+            }
+
+            float travelDirection = Mathf.Sign(carriedHorizontalSpeed);
+            if (travelDirection == 0f)
+                travelDirection = Mathf.Sign(vx);
+            if (travelDirection == 0f)
+                travelDirection = 1f;
+
+            float walkSpeedAlongTravel = travelDirection * moveSpeed;
+            carriedHorizontalSpeed = Mathf.MoveTowards(
+                carriedHorizontalSpeed, walkSpeedAlongTravel, momentumBleedRate * deltaTime);
+
+            vx = carriedHorizontalSpeed;
+
+            if (Mathf.Abs(horizontalInput) > 0.05f && Mathf.Sign(horizontalInput) == travelDirection)
+            {
+                float targetSpeed = horizontalInput * moveSpeed;
+                float accelerationRate = isGrounded
+                    ? Mathf.Abs(targetSpeed) > 0.01f ? groundAcceleration : groundDeceleration
+                    : airAcceleration;
+                float velocityChange = (targetSpeed - vx) * accelerationRate * deltaTime;
+
+                if (Mathf.Abs(vx) > moveSpeed)
+                {
+                    if (Mathf.Abs(vx + velocityChange) > Mathf.Abs(vx))
+                        vx += velocityChange;
+                }
+                else
+                {
+                    vx += velocityChange;
+                }
+
+                carriedHorizontalSpeed = vx;
+            }
+
+            float handoffThreshold = moveSpeed * (1f + momentumHandoffEpsilon);
+            if (Mathf.Abs(carriedHorizontalSpeed) <= handoffThreshold)
+                EndCarriedMomentum();
+
+            return vx;
+        }
+
+        void EndCarriedMomentum()
+        {
+            carriedMomentumActive = false;
+            carriedHorizontalSpeed = 0f;
+            momentumCoastTimer = 0f;
+        }
+
+        void BeginGravityBlend()
+        {
+            gravityBlendTimer = 0f;
+            gravityBlendActive = true;
+        }
+
+        void TickGravityBlend()
+        {
+            if (!gravityBlendActive)
+                return;
+
+            gravityBlendTimer += Time.fixedDeltaTime;
+            float duration = Mathf.Max(gravityRestoreDuration, 0.01f);
+            float t = Mathf.Clamp01(gravityBlendTimer / duration);
+            rb.gravityScale = Mathf.Lerp(launchGravityScale, defaultGravityScale, t);
+
+            if (t >= 1f)
+            {
+                rb.gravityScale = defaultGravityScale;
+                gravityBlendActive = false;
+            }
+        }
+
+        /// <summary>연산 가속 등 기능 해금 시 호출. 선택 슬로모 모드로 전환.</summary>
+        public void UnlockSelectionSlowMotion()
+        {
+            slowMoUnlockedByFeature = true;
+            selectionMode = GrappleSelectionMode.SlowMotion;
+        }
+
+        public void SetSelectionMode(GrappleSelectionMode mode) => selectionMode = mode;
 
         void Awake()
         {
@@ -73,6 +230,10 @@ namespace ClockWork.Game
             interactAction = playerInput.actions["Interact"];
             moveAction = playerInput.actions["Move"];
             jumpAction = playerInput.actions["Jump"];
+            cancelAction = playerInput.actions.FindAction("GrappleCancel", false);
+
+            if (slowMoUnlockedByFeature)
+                selectionMode = GrappleSelectionMode.SlowMotion;
 
             if (hookOrigin == null)
             {
@@ -112,6 +273,8 @@ namespace ClockWork.Game
             if (interactAction == null)
                 return;
 
+            HandleDebugSlowMoToggle();
+
             switch (phase)
             {
                 case GrapplePhase.Idle:
@@ -120,12 +283,19 @@ namespace ClockWork.Game
                     break;
 
                 case GrapplePhase.Selecting:
-                    if (interactAction.WasPressedThisFrame())
+                    if (cancelAction != null && cancelAction.WasPressedThisFrame())
+                    {
+                        CancelSelection();
+                        break;
+                    }
+
+                    if (interactAction.WasReleasedThisFrame())
                     {
                         ConfirmSelection();
                         break;
                     }
 
+                    UpdateSelectionPoints();
                     UpdateSelectionFromInput();
                     UpdateSelectionVisuals();
                     UpdatePreviewRope();
@@ -138,16 +308,48 @@ namespace ClockWork.Game
             }
         }
 
+        void HandleDebugSlowMoToggle()
+        {
+            if (slowMoUnlockedByFeature)
+                return;
+
+            if (Keyboard.current == null)
+                return;
+
+            if (Keyboard.current[debugToggleSlowMoKey].wasPressedThisFrame)
+            {
+                selectionMode = selectionMode == GrappleSelectionMode.Normal
+                    ? GrappleSelectionMode.SlowMotion
+                    : GrappleSelectionMode.Normal;
+            }
+        }
+
+        bool ShouldUseSelectionSlowMo() => selectionMode == GrappleSelectionMode.SlowMotion;
+
+        void EnterSelectionSlowMo()
+        {
+            if (!ShouldUseSelectionSlowMo() || selectionSlowMoActive)
+                return;
+
+            GrappleSlowMotion.Enter(slowMotionScale);
+            selectionSlowMoActive = true;
+        }
+
+        void ExitSelectionSlowMo()
+        {
+            if (!selectionSlowMoActive)
+                return;
+
+            GrappleSlowMotion.Exit();
+            selectionSlowMoActive = false;
+        }
+
         void FixedUpdate()
         {
-            if (momentumPreserveTimer > 0f && phase == GrapplePhase.Idle)
-                momentumPreserveTimer -= Time.fixedDeltaTime;
+            TickGravityBlend();
 
             switch (phase)
             {
-                case GrapplePhase.Selecting:
-                    rb.linearVelocity = Vector2.zero;
-                    break;
                 case GrapplePhase.Snapping:
                     TickSnapping();
                     break;
@@ -169,17 +371,23 @@ namespace ClockWork.Game
             if (selectablePoints.Count == 0)
                 return;
 
-            storedVelocity = rb.linearVelocity;
-            rb.linearVelocity = Vector2.zero;
-            rb.gravityScale = 0f;
-
             selectedPoint = FindNearestPoint();
             phase = GrapplePhase.Selecting;
 
-            GrappleSlowMotion.Enter(slowMotionScale);
+            EnterSelectionSlowMo();
             ropeLine.enabled = true;
             UpdateSelectionVisuals();
             UpdatePreviewRope();
+        }
+
+        void UpdateSelectionPoints()
+        {
+            GatherSelectablePoints();
+
+            if (selectedPoint != null && selectablePoints.Contains(selectedPoint))
+                return;
+
+            selectedPoint = selectablePoints.Count > 0 ? FindNearestPoint() : null;
         }
 
         void GatherSelectablePoints()
@@ -287,7 +495,7 @@ namespace ClockWork.Game
 
         void ConfirmSelection()
         {
-            GrappleSlowMotion.Exit();
+            ExitSelectionSlowMo();
 
             if (selectedPoint == null)
             {
@@ -308,12 +516,10 @@ namespace ClockWork.Game
 
         void CancelSelection()
         {
-            GrappleSlowMotion.Exit();
+            ExitSelectionSlowMo();
             phase = GrapplePhase.Idle;
             selectedPoint = null;
             selectablePoints.Clear();
-            rb.gravityScale = defaultGravityScale;
-            rb.linearVelocity = storedVelocity;
             ropeLine.enabled = false;
             ResetPointHighlights();
         }
@@ -359,7 +565,7 @@ namespace ClockWork.Game
             }
 
             Vector2 direction = GetMomentumLaunchDirection();
-            float speed = Mathf.Max(storedVelocity.magnitude, activePoint.LaunchSpeed * launchSpeedMultiplier, minLaunchSpeed);
+            float speed = Mathf.Max(rb.linearVelocity.magnitude, activePoint.LaunchSpeed * launchSpeedMultiplier, minLaunchSpeed);
             launchVelocity = direction * speed;
 
             momentumAnchor = activePoint.Anchor;
@@ -464,17 +670,23 @@ namespace ClockWork.Game
 
         void ReleaseMomentumAtAnchor()
         {
-            momentumPreserveTimer = momentumPreserveDuration;
+            carriedHorizontalSpeed = rb.linearVelocity.x;
+            carriedMomentumActive = true;
+            momentumCoastTimer = momentumPreserveDuration;
+            BeginGravityBlend();
+
             phase = GrapplePhase.Idle;
             activePoint = null;
             selectedPoint = null;
-            rb.gravityScale = defaultGravityScale;
             ropeLine.enabled = false;
             ResetPointHighlights();
         }
 
         void EndGrapple()
         {
+            ExitSelectionSlowMo();
+            EndCarriedMomentum();
+            gravityBlendActive = false;
             phase = GrapplePhase.Idle;
             activePoint = null;
             selectedPoint = null;
