@@ -1,0 +1,57 @@
+---
+description: git push·commit+push 요청 시 CHANGELOG 초안을 채팅에 보여주고 확인 후 push
+alwaysApply: false
+---
+
+# Push 전 CHANGELOG 확인 (채팅)
+
+사용자가 **push**, **commit 후 push**, **올려줘**, **배포** 등 원격 반영을 요청하면, **push/commit 명령을 실행하기 전** 아래를 따른다.
+
+## 1. 초안 만들기
+
+push 범위를 확인한다.
+
+- 이미 커밋됨: `@{u}..HEAD` (또는 `origin/master..HEAD`)
+- 아직 커밋 전: `git status`·diff로 포함될 변경을 파악
+
+hook과 동일한 블록이 필요하면 (파일 생성 없이 stdout):
+
+```powershell
+py .githooks/lib/update_changelog.py --preview - --simulate   # 커밋 전
+py .githooks/lib/update_changelog.py --preview -              # 커밋 후
+```
+
+## 2. 채팅에 초안 표시 (필수)
+
+**이 대화(채팅)에** 아래를 포함해 보여준다. `CHANGELOG-preview.txt` 등 **별도 파일을 만들지 않는다.**
+
+1. **갱신 시각** (KST) — hook이 붙일 `## YYYY-MM-DD HH:MM:SS KST`와 동일
+2. **대상 파일** — `docs/changelog/YYYY-MM.md`
+3. **요약 (한국어)** — 추가 / 변경 / 수정 / 기타 (커밋 메시지만 나열하지 말고 **무엇이 바뀌는지** 한두 문장)
+4. **hook 블록** — `--preview -` 출력 또는 동등한 커밋·변경 파일·diff 요약
+5. **포함될 커밋** — push 전 커밋이 필요하면 메시지 초안도 제시
+
+## 3. 확인 대기
+
+사용자가 **명시적으로 승인**할 때까지 `git push`, `git commit` (changelog·push용)을 실행하지 않는다.
+
+- 승인 예: 「확인」, 「push 해」, 「올려」
+- 수정 요청 시: 커밋 메시지·포함 파일·요약 문구를 반영한 뒤 **다시 2단계**
+
+## 4. 승인 후 진행
+
+1. 필요 시 `git add` / `git commit` (기능 커밋)
+2. `git push` — **pre-push hook**이 `docs/changelog/YYYY-MM.md` 맨 위에 누적 + changelog 커밋 후 push
+3. push 결과를 짧게 보고 (커밋 수, changelog 파일 경로)
+
+## 5. 예외
+
+- 사용자가 「확인 없이 push」「--no-verify」를 **명시**하면 2~3단계 생략 가능
+- 터미널에서 사용자가 직접 push하는 경우 이 Rule은 적용되지 않음 — hook만 동작
+
+## hook과 역할 분담
+
+| | Cursor Rule (채팅) | pre-push hook |
+|--|-------------------|---------------|
+| 목적 | 사람이 읽고 **승인** | **실제 기록** 저장 |
+| 출력 | 채팅 | `docs/changelog/`, `CHANGELOG.md` |

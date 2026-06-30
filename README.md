@@ -308,3 +308,22 @@ swap=2GB
 저장 후 `wsl --shutdown` 실행.
 
 Unity 작업 시 Docker Desktop·WSL을 쓰지 않으면 종료하는 것을 권장합니다.
+
+---
+
+<!-- git-hook:changelog:start -->
+## 최근 변경 (자동 갱신)
+
+**갱신:** (push 시 자동 기록)
+
+### 커밋
+- (아직 push hook 갱신 전)
+
+### 변경 파일
+- (아직 push hook 갱신 전)
+
+### diff 요약
+```
+(아직 push hook 갱신 전)
+```
+<!-- git-hook:changelog:end -->

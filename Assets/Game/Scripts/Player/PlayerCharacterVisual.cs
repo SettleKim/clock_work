@@ -6,8 +6,6 @@ namespace ClockWork.Game
     [RequireComponent(typeof(Animator))]
     public class PlayerCharacterVisual : MonoBehaviour
     {
-        const string WaitSheetPath = "Assets/Game/art/player/tick - wait.png";
-
         static readonly int SpeedHash = Animator.StringToHash("Speed");
 
         [SerializeField] float walkSpeedThreshold = 0.05f;
@@ -77,19 +75,11 @@ namespace ClockWork.Game
             if (idleRightSprite != null && idleLeftSprite != null)
                 return;
 
-#if UNITY_EDITOR
-            var assets = UnityEditor.AssetDatabase.LoadAllAssetsAtPath(WaitSheetPath);
-            foreach (Object asset in assets)
+            if (PlayerSpriteSheetResolver.TryGetIdleSprites(out Sprite left, out Sprite right))
             {
-                if (asset is not Sprite sprite)
-                    continue;
-
-                if (sprite.name == "tick - wait_1")
-                    idleRightSprite ??= sprite;
-                else if (sprite.name == "tick - wait_0")
-                    idleLeftSprite ??= sprite;
+                idleLeftSprite ??= left;
+                idleRightSprite ??= right;
             }
-#endif
         }
 
 #if UNITY_EDITOR

@@ -5,7 +5,6 @@ namespace ClockWork.Game
     static class PlayerVisualSetup
     {
         const string ControllerPath = "Assets/Game/art/player/visual.controller";
-        const string WaitSheetPath = "Assets/Game/art/player/tick - wait.png";
 
         public static void EnsureAndConfigure(GameObject player)
         {
@@ -88,16 +87,10 @@ namespace ClockWork.Game
 #if UNITY_EDITOR
             controller = UnityEditor.AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>(ControllerPath);
 
-            var assets = UnityEditor.AssetDatabase.LoadAllAssetsAtPath(WaitSheetPath);
-            foreach (Object asset in assets)
+            if (PlayerSpriteSheetResolver.TryGetIdleSprites(out Sprite left, out Sprite right))
             {
-                if (asset is not Sprite sprite)
-                    continue;
-
-                if (sprite.name == "tick - wait_1")
-                    idleRight = sprite;
-                else if (sprite.name == "tick - wait_0")
-                    idleLeft = sprite;
+                idleLeft = left;
+                idleRight = right;
             }
 #endif
         }

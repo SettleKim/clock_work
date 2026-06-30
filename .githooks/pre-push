@@ -1,0 +1,34 @@
+#!/bin/sh
+# push 직전 docs/changelog/YYYY-MM.md 맨 위에 이번 push 기록 누적
+# 설치: git config core.hooksPath .githooks
+
+set -e
+
+ROOT=$(git rev-parse --show-toplevel)
+cd "$ROOT"
+
+PYTHON=
+if command -v python >/dev/null 2>&1; then
+  PYTHON=python
+elif command -v py >/dev/null 2>&1; then
+  PYTHON=py
+else
+  echo "pre-push: Python이 필요합니다 (changelog 갱신)."
+  echo "       https://www.python.org/downloads/"
+  exit 1
+fi
+
+"$PYTHON" "$ROOT/.githooks/lib/update_changelog.py" --apply
+status=$?
+
+if [ "$status" -eq 2 ]; then
+  echo "pre-push: push할 새 커밋 없음 — changelog 생략"
+  exit 0
+fi
+
+if [ "$status" -ne 0 ]; then
+  exit 1
+fi
+
+echo "pre-push: changelog 반영 완료 — push 계속"
+exit 0

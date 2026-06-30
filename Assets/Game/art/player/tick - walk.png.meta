@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 92709a5beadfe6445b86ef150335d772
+guid: 108fd487503cb534ebf912556dbdc66c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5524746049710804667
-    second: tick - walk_0
+      213: 9002681174113407824
+    second: tick - walk 1_0
   - first:
-      213: 4793263765937305337
-    second: tick - walk_1
+      213: 2010533810607691356
+    second: tick - walk 1_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tick - walk_0
+      name: tick - walk 1_0
       rect:
         serializedVersion: 2
-        x: 115
-        y: 85
-        width: 225
-        height: 324
+        x: 160
+        y: 143
+        width: 185
+        height: 255
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,20 +118,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 541beb83db82453b0800000000000000
-      internalID: -5524746049710804667
+      spriteID: 053502164d2ffec70800000000000000
+      internalID: 9002681174113407824
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tick - walk_1
+      name: tick - walk 1_1
       rect:
         serializedVersion: 2
-        x: 621
-        y: 85
-        width: 225
-        height: 324
+        x: 563
+        y: 143
+        width: 179
+        height: 255
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9f6b173dff7158240800000000000000
-      internalID: 4793263765937305337
+      spriteID: c561f2639d9d6eb10800000000000000
+      internalID: 2010533810607691356
       vertices: []
       indices: 
       edges: []
@@ -150,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5c62c02ed7c20cf4cbdf4af4ba1ee231
+    spriteID: fe7fd1f417ff24c4ea65630ad8b7e177
     internalID: 0
     vertices: []
     indices: 
@@ -160,9 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      tick - walk_0: -5524746049710804667
-      tick - walk_1: 4793263765937305337
-      tick - walk_2: 1436477308
+      tick - walk 1_0: 9002681174113407824
+      tick - walk 1_1: 2010533810607691356
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

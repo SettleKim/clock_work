@@ -1,28 +1,13 @@
 fileFormatVersion: 2
-guid: 62f46843cf481334da62962358356b6b
+guid: 92709a5beadfe6445b86ef150335d772
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4564538436482628303
-    second: tick - attack - fist_0
+      213: -5524746049710804667
+    second: tick - walk_0
   - first:
-      213: -6587332549254053532
-    second: tick - attack - fist_1
-  - first:
-      213: 5435843326764968028
-    second: tick - attack - fist_2
-  - first:
-      213: -7234124535403876197
-    second: tick - attack - fist_3
-  - first:
-      213: 5024538454278596703
-    second: tick - attack - fist_4
-  - first:
-      213: -4280838727157844359
-    second: tick - attack - fist_5
-  - first:
-      213: 8990391609092150453
-    second: tick - attack - fist_6
+      213: 4793263765937305337
+    second: tick - walk_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -118,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tick - attack - fist_0
+      name: tick - walk_0
       rect:
         serializedVersion: 2
-        x: 85
-        y: 71
-        width: 220
-        height: 255
+        x: 115
+        y: 85
+        width: 225
+        height: 324
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -133,20 +118,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fcaf926268f785f30800000000000000
-      internalID: 4564538436482628303
+      spriteID: 541beb83db82453b0800000000000000
+      internalID: -5524746049710804667
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tick - attack - fist_1
+      name: tick - walk_1
       rect:
         serializedVersion: 2
-        x: 411
-        y: 74
-        width: 220
-        height: 255
+        x: 621
+        y: 85
+        width: 225
+        height: 324
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,30 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 461085892f71594a0800000000000000
-      internalID: -6587332549254053532
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tick - attack - fist_2
-      rect:
-        serializedVersion: 2
-        x: 717
-        y: 71
-        width: 300
-        height: 255
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c58e08294beff6b40800000000000000
-      internalID: 5435843326764968028
+      spriteID: 9f6b173dff7158240800000000000000
+      internalID: 4793263765937305337
       vertices: []
       indices: 
       edges: []
@@ -187,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 20cc8d6e692a6d045ac74b42f71f3fdc
+    spriteID: 5c62c02ed7c20cf4cbdf4af4ba1ee231
     internalID: 0
     vertices: []
     indices: 
@@ -195,17 +158,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":1.0},"gridSpriteSize":{"x":341.0,"y":442.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      tick - attack - fist_0: 4564538436482628303
-      tick - attack - fist_1: -6587332549254053532
-      tick - attack - fist_2: 5435843326764968028
-      tick - attack - fist_3: -7234124535403876197
-      tick - attack - fist_4: 5024538454278596703
-      tick - attack - fist_5: -4280838727157844359
-      tick - attack - fist_6: 8990391609092150453
+      tick - walk_0: -5524746049710804667
+      tick - walk_1: 4793263765937305337
+      tick - walk_2: 1436477308
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

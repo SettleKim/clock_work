@@ -245,11 +245,15 @@ namespace ClockWork.Game
                 {
                     float targetSpeed = horizontalInput * moveSpeed;
                     float speedDifference = targetSpeed - vx;
-                    float accelerationRate = IsGrounded
-                        ? Mathf.Abs(targetSpeed) > 0.01f ? groundAcceleration : groundDeceleration
-                        : airAcceleration;
+                    float accelerationRate = IsGrounded ? groundAcceleration : airAcceleration;
                     float velocityChange = speedDifference * accelerationRate * Time.fixedDeltaTime;
                     rb.linearVelocity = new Vector2(vx + velocityChange, rb.linearVelocity.y);
+                }
+                else if (Mathf.Abs(vx) > 0.001f)
+                {
+                    float decelerationRate = IsGrounded ? groundDeceleration : airAcceleration;
+                    float newVx = Mathf.MoveTowards(vx, 0f, decelerationRate * Time.fixedDeltaTime);
+                    rb.linearVelocity = new Vector2(newVx, rb.linearVelocity.y);
                 }
             }
 

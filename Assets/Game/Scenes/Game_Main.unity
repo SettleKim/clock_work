@@ -1148,7 +1148,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 1321599770793670556, guid: 175d1eccfe9e1fb458f9cd49ab2db8d0, type: 3}
+  m_Sprite: {fileID: 8797434591590218628, guid: 979a75374fc5b034db2272ce5e6aab49, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1193,8 +1193,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ClockWork.Game::ClockWork.Game.PlayerCharacterVisual
   walkSpeedThreshold: 0.05
-  idleRightSprite: {fileID: 1321599770793670556, guid: 175d1eccfe9e1fb458f9cd49ab2db8d0, type: 3}
-  idleLeftSprite: {fileID: -2965051473901538838, guid: 175d1eccfe9e1fb458f9cd49ab2db8d0, type: 3}
+  idleRightSprite: {fileID: 8797434591590218628, guid: 979a75374fc5b034db2272ce5e6aab49, type: 3}
+  idleLeftSprite: {fileID: 1682791735413218133, guid: 979a75374fc5b034db2272ce5e6aab49, type: 3}
 --- !u!1 &1505325806
 GameObject:
   m_ObjectHideFlags: 0

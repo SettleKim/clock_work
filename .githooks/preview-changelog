@@ -1,0 +1,39 @@
+#!/bin/sh
+# CHANGELOG 블록 미리보기 (파일 수정·커밋 없음)
+#
+#   .githooks/preview-changelog
+#   .githooks/preview-changelog CHANGELOG-preview.txt
+#   .githooks/preview-changelog --simulate CHANGELOG-preview.txt
+
+set -e
+
+ROOT=$(git rev-parse --show-toplevel)
+cd "$ROOT"
+
+OUTPUT="${1:-CHANGELOG-preview.txt}"
+SIMULATE=
+
+if [ "$1" = "--simulate" ]; then
+  SIMULATE=--simulate
+  OUTPUT="${2:-CHANGELOG-preview.txt}"
+fi
+
+PYTHON=
+if command -v python >/dev/null 2>&1; then
+  PYTHON=python
+elif command -v py >/dev/null 2>&1; then
+  PYTHON=py
+else
+  echo "preview: Python 필요"
+  exit 1
+fi
+
+"$PYTHON" "$ROOT/.githooks/lib/update_changelog.py" --preview "$OUTPUT" $SIMULATE
+status=$?
+
+if [ "$status" -eq 2 ]; then
+  echo "preview: push 범위에 커밋 없음 (--simulate 로 미커밋 작업 트리 확인)"
+  exit 0
+fi
+
+exit "$status"
