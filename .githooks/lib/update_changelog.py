@@ -28,6 +28,13 @@ CHANGELOG_DIR = REPO_ROOT / "docs" / "changelog"
 MONTHS_MARKER_START = "<!-- changelog:auto:months -->"
 MONTHS_MARKER_END = "<!-- /changelog:auto:months -->"
 
+CHANGELOG_AUTO_PREFIX = "docs: changelog 갱신"
+
+
+def is_changelog_auto_commit(subject: str) -> bool:
+    return subject.startswith(CHANGELOG_AUTO_PREFIX)
+
+
 PREFIX_MAP = {
     "feat": "added",
     "feature": "added",
@@ -119,6 +126,8 @@ def collect_commits(rev_range: str) -> tuple[list[str], dict[str, list[str]]]:
         if "|" not in line:
             continue
         short_hash, subject = line.split("|", 1)
+        if is_changelog_auto_commit(subject):
+            continue
         commit_lines.append(f"- {subject} (`{short_hash}`)")
         bucket, desc = classify_commit(subject)
         buckets[bucket].append(f"- {desc} (`{short_hash}`)")

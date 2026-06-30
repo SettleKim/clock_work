@@ -4,6 +4,10 @@
 
 set -e
 
+if [ "$CHANGELOG_HOOK_RECURSIVE" = "1" ]; then
+  exit 0
+fi
+
 ROOT=$(git rev-parse --show-toplevel)
 cd "$ROOT"
 
@@ -18,6 +22,8 @@ else
   exit 1
 fi
 
+commits_before=$(git rev-parse HEAD)
+
 "$PYTHON" "$ROOT/.githooks/lib/update_changelog.py" --apply
 status=$?
 
@@ -28,6 +34,13 @@ fi
 
 if [ "$status" -ne 0 ]; then
   exit 1
+fi
+
+commits_after=$(git rev-parse HEAD)
+if [ "$commits_before" != "$commits_after" ]; then
+  branch=$(git symbolic-ref --short HEAD 2>/dev/null || echo "master")
+  echo "pre-push: changelog 커밋 follow-up push"
+  CHANGELOG_HOOK_RECURSIVE=1 git push --no-verify "$1" "HEAD:${branch}"
 fi
 
 echo "pre-push: changelog 반영 완료 — push 계속"
