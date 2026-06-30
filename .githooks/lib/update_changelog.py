@@ -4,7 +4,7 @@ push 직전 CHANGELOG 갱신 (월별 파일에 누적).
 
 사용:
   update_changelog.py --apply              # 월별 md + CHANGELOG.md 갱신, 변경 시 커밋
-  update_changelog.py --preview [파일]   # 미리보기만 (README/CHANGELOG 수정 없음)
+  update_changelog.py --preview -          # stdout 미리보기 (파일 없음)
   update_changelog.py --simulate         # origin/master..HEAD + 미커밋(untracked) 시뮬레이션
 
 종료 코드:

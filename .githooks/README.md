@@ -73,21 +73,15 @@ docs/changelog/
 
 접두사 없으면 **기타** + **커밋** 목록에 그대로 표시.
 
-## 미리보기
+## 에이전트 미리보기 (채팅)
 
-**권장:** Cursor Rule `push-changelog-confirm` — push 요청 시 에이전트가 **채팅에** changelog 초안을 보여주고 확인 후 push.
+Cursor Rule `push-changelog-confirm` — push 요청 시 **채팅에** changelog 초안 표시 후 확인.
 
-에이전트/디버그용 (파일 없이 stdout):
+hook과 동일한 블록이 필요할 때만 stdout (파일 생성 없음):
 
 ```powershell
 py .githooks/lib/update_changelog.py --preview - --simulate   # 커밋 전
-py .githooks/lib/update_changelog.py --preview -            # 커밋 후
-```
-
-파일로 저장 (선택, 보통 불필요):
-
-```powershell
-& "C:\Program Files\Git\bin\bash.exe" .githooks/preview-changelog --simulate
+py .githooks/lib/update_changelog.py --preview -              # 커밋 후
 ```
 
 ## 비활성화 (1회)
