@@ -58,6 +58,9 @@ SECTION_LABELS = {
     "other": "기타",
 }
 
+# 커밋 본문 불릿: "- English — Korean" (em/en dash or " - ")
+BULLET_KO_RE = re.compile(r"^[-*]\s+.+\s+(?:—|–|-)\s+(.+)$")
+
 
 def run_git(*args: str, check: bool = True) -> str:
     result = subprocess.run(
@@ -135,6 +138,39 @@ def collect_commits(rev_range: str) -> tuple[list[str], dict[str, list[str]]]:
     return commit_lines, buckets
 
 
+def extract_korean_from_body(body: str) -> list[str]:
+    items: list[str] = []
+    for line in body.splitlines():
+        match = BULLET_KO_RE.match(line.strip())
+        if not match:
+            continue
+        text = match.group(1).strip()
+        if text:
+            items.append(text)
+    return items
+
+
+def collect_korean_summaries(rev_range: str) -> list[str]:
+    """커밋 본문 불릿에서 ` — ` 뒤 한국어를 추출 (commit-message rule)."""
+    hashes = run_git("log", rev_range, "--pretty=format:%h", check=False)
+    if not hashes:
+        return []
+
+    seen: set[str] = set()
+    lines: list[str] = []
+    for short_hash in hashes.splitlines():
+        subject = run_git("log", "-1", f"--pretty=format:%s", short_hash, check=False)
+        if is_changelog_auto_commit(subject):
+            continue
+        body = run_git("log", "-1", "--pretty=format:%b", short_hash, check=False)
+        for text in extract_korean_from_body(body):
+            if text in seen:
+                continue
+            seen.add(text)
+            lines.append(f"- {text}")
+    return lines
+
+
 def collect_files(rev_range: str, simulate: bool) -> list[str]:
     files = run_git("diff", "--name-only", rev_range, check=False)
     names = [f for f in files.splitlines() if f]
@@ -187,6 +223,7 @@ def build_entry(rev_range: str, range_label: str, simulate: bool = False) -> dic
 
     file_lines = collect_files(rev_range, simulate)
     stat_line = collect_stat(rev_range, simulate)
+    summary_lines = [] if simulate else collect_korean_summaries(rev_range)
 
     parts = [
         f"## {timestamp}",
@@ -196,6 +233,11 @@ def build_entry(rev_range: str, range_label: str, simulate: bool = False) -> dic
         f"**커밋 수:** {len(commit_lines)}",
         "",
     ]
+
+    if summary_lines:
+        parts.append("### 요약")
+        parts.extend(summary_lines)
+        parts.append("")
 
     for key in ("added", "changed", "fixed", "other"):
         items = buckets[key]

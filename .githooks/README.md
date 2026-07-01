@@ -42,6 +42,12 @@ docs/changelog/
 **범위:** `origin/master..HEAD` (`f3e7629`..`abc1234`)
 **커밋 수:** 2
 
+### 요약
+- 걷기·대기 애니 재연결
+- 이동 감속 적용
+
+(커밋 본문 불릿 `영어 — 한국어`에서 ` — ` 뒤만 자동 추출. `commit-message` Cursor rule 참고.)
+
 ### 추가
 - walk/idle 애니 재연결 (`abc1234`)
 
@@ -72,6 +78,16 @@ docs/changelog/
 | 그 외 | 기타 |
 
 접두사 없으면 **기타** + **커밋** 목록에 그대로 표시.
+
+## 한국어 요약 (`### 요약`)
+
+기능 커밋 본문을 `commit-message` rule 형식으로 쓰면:
+
+```
+- ComboDefinition + FistCombo asset — 주먹 3연타 데이터(SO) 및 히트박스 설정
+```
+
+push hook이 ` — ` 뒤 한국어만 모아 월별 changelog **`### 요약`** 섹션에 넣는다. 별도 수동 작성 불필요.
 
 ## 에이전트 미리보기 (채팅)
 

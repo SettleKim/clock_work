@@ -14,34 +14,37 @@ push 범위를 확인한다.
 - 이미 커밋됨: `@{u}..HEAD` (또는 `origin/master..HEAD`)
 - 아직 커밋 전: `git status`·diff로 포함될 변경을 파악
 
-hook과 동일한 블록이 필요하면 (파일 생성 없이 stdout):
+hook과 동일한 블록 (파일 생성 없이 stdout):
 
 ```powershell
 py .githooks/lib/update_changelog.py --preview - --simulate   # 커밋 전
 py .githooks/lib/update_changelog.py --preview -              # 커밋 후
 ```
 
+- **커밋 후** preview에 **`### 요약`** 이 보임 — 커밋 본문 `영어 — 한국어` 불릿에서 hook이 추출
+- **커밋 전** simulate는 `### 요약` 없음 → 커밋 메시지 초안의 한국어 불릿을 참고해 설명
+
 ## 2. 채팅에 초안 표시 (필수)
 
-**이 대화(채팅)에** 아래를 포함해 보여준다. `CHANGELOG-preview.txt` 등 **별도 파일을 만들지 않는다.**
+**이 대화(채팅)에** 아래를 포함해 보여준다. 별도 preview 파일을 만들지 않는다.
 
 1. **갱신 시각** (KST) — hook이 붙일 `## YYYY-MM-DD HH:MM:SS KST`와 동일
 2. **대상 파일** — `docs/changelog/YYYY-MM.md`
-3. **요약 (한국어)** — 추가 / 변경 / 수정 / 기타 (커밋 메시지만 나열하지 말고 **무엇이 바뀌는지** 한두 문장)
-4. **hook 블록** — `--preview -` 출력 또는 동등한 커밋·변경 파일·diff 요약
-5. **포함될 커밋** — push 전 커밋이 필요하면 메시지 초안도 제시
+3. **`### 요약`** — preview 출력에 있으면 그대로 인용; 없으면 제안 커밋 본문의 한국어 불릿 나열
+4. **hook 블록** — `--preview -` 출력 전체 또는 핵심 섹션
+5. **포함될 커밋** — push 전 커밋이 필요하면 `commit-message` rule 형식으로 메시지 초안 제시
 
 ## 3. 확인 대기
 
 사용자가 **명시적으로 승인**할 때까지 `git push`, `git commit` (changelog·push용)을 실행하지 않는다.
 
-- 승인 예: 「확인」, 「push 해」, 「올려」
+- 승인 예: 「확인」, 「push 해」, 「올려」, 「push 진행」
 - 수정 요청 시: 커밋 메시지·포함 파일·요약 문구를 반영한 뒤 **다시 2단계**
 
 ## 4. 승인 후 진행
 
-1. 필요 시 `git add` / `git commit` (기능 커밋)
-2. `git push` — **pre-push hook**이 `docs/changelog/YYYY-MM.md` 맨 위에 누적 + changelog 커밋 후 push
+1. 필요 시 `git add` / `git commit` (기능 커밋 — 본문 불릿에 한국어 포함)
+2. `git push` — **pre-push hook**이 `### 요약` 포함 블록을 월별 md 맨 위에 누적 + changelog 커밋 후 push
 3. push 결과를 짧게 보고 (커밋 수, changelog 파일 경로)
 
 ## 5. 예외
@@ -54,4 +57,5 @@ py .githooks/lib/update_changelog.py --preview -              # 커밋 후
 | | Cursor Rule (채팅) | pre-push hook |
 |--|-------------------|---------------|
 | 목적 | 사람이 읽고 **승인** | **실제 기록** 저장 |
+| 한국어 요약 | preview `### 요약` 또는 커밋 초안 | 커밋 본문 ` — ` 뒤 → `### 요약` |
 | 출력 | 채팅 | `docs/changelog/`, `CHANGELOG.md` |

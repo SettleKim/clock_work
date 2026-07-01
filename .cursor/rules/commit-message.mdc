@@ -12,6 +12,14 @@ alwaysApply: true
 1. **제목 (1줄, 영어)** — Conventional Commits: `feat:` / `fix:` / `docs:` / `chore:` 등 (72자 이내, 핵심 키워드)
 2. **본문 (선택, 불릿)** — 영어 키워드 + ` — ` + 한국어 설명
 
+## changelog 연동 (반자동)
+
+push 시 pre-push hook이 커밋 **본문 불릿**에서 ` — ` **뒤 한국어**만 추출해 `docs/changelog/YYYY-MM.md`의 **`### 요약`** 에 넣는다.
+
+- 본문 불릿을 쓰면 changelog에 한국어 변경 요약이 자동 누적됨
+- 본문 생략 시 `### 요약` 없음 (제목·파일 목록만)
+- `docs: changelog 갱신 (...)` hook 자동 커밋은 대상 아님
+
 ## 예시
 
 ```
@@ -24,17 +32,26 @@ feat: fist combo SO, idle L/R split, grapple rules, scene art
 - Docs: Combat, PlayerAnimation, Movement — 전투·애니·이동 문서
 ```
 
+→ changelog `### 요약` 예:
+
+```markdown
+### 요약
+- 주먹 3연타 데이터(SO) 및 히트박스 설정
+- 공격 3타·대기 좌우 애니 분리
+- …
+```
+
 ## 작성 규칙
 
-- 제목에 이번 push의 **핵심 키워드**를 남긴다 (changelog 분류·`git log` 검색용).
+- 제목에 이번 push의 **핵심 키워드**를 남긴다 (changelog `### 추가` 등 분류·`git log` 검색용).
 - 불릿은 **4~8개**; 클래스·에셋명은 영어 그대로 (`ComboDefinition`, `FaceLeft`).
-- 사소한 수정은 본문 생략 가능. 한 줄이 너무 길면 영어·한국어를 두 줄로 나눠도 됨.
-- `docs: changelog 갱신 (...)` 등 hook 자동 커밋은 이 형식 대상 아님.
+- **한국어 부분**은 changelog에 그대로 노출되므로, “무엇이 바뀌었는지” 읽기 좋게 쓴다.
+- 구분자는 em dash ` — ` 권장 (hook이 `—` / `–` / ` - ` 모두 인식).
 
 ## 하지 말 것
 
 - 제목을 한국어로만 길게 쓰기 (prefix 뒤는 영어 키워드 유지)
-- 본문 불릿을 영어만 또는 한국어만으로 통일
+- 본문 불릿을 영어만 또는 한국어만으로 통일 (` — ` 쌍 필수)
 - README·`docs/changelog/` 본문 전체를 커밋 메시지에 복붙
 
 push 전 미리보기·승인 절차는 `push-changelog-confirm` rule을 따른다.
