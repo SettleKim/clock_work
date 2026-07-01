@@ -1,0 +1,40 @@
+---
+description: git commit·push 시 커밋 메시지 형식 (영어 제목 + 영·한 불릿)
+alwaysApply: true
+---
+
+# 커밋 메시지 형식
+
+기능·수정 커밋은 아래 형식을 따른다.
+
+## 구조
+
+1. **제목 (1줄, 영어)** — Conventional Commits: `feat:` / `fix:` / `docs:` / `chore:` 등 (72자 이내, 핵심 키워드)
+2. **본문 (선택, 불릿)** — 영어 키워드 + ` — ` + 한국어 설명
+
+## 예시
+
+```
+feat: fist combo SO, idle L/R split, grapple rules, scene art
+
+- ComboDefinition + FistCombo asset — 주먹 3연타 데이터(SO) 및 히트박스 설정
+- 3-hit attack anims, FaceLeft idle L/R — 공격 3타·대기 좌우 애니 분리
+- Momentum: ignore move input; anchor: jump-only release — 갈고리 모멘텀/앵커 규칙
+- Remove player WorldHealthBar — 플레이어 머리 체력바 제거
+- Docs: Combat, PlayerAnimation, Movement — 전투·애니·이동 문서
+```
+
+## 작성 규칙
+
+- 제목에 이번 push의 **핵심 키워드**를 남긴다 (changelog 분류·`git log` 검색용).
+- 불릿은 **4~8개**; 클래스·에셋명은 영어 그대로 (`ComboDefinition`, `FaceLeft`).
+- 사소한 수정은 본문 생략 가능. 한 줄이 너무 길면 영어·한국어를 두 줄로 나눠도 됨.
+- `docs: changelog 갱신 (...)` 등 hook 자동 커밋은 이 형식 대상 아님.
+
+## 하지 말 것
+
+- 제목을 한국어로만 길게 쓰기 (prefix 뒤는 영어 키워드 유지)
+- 본문 불릿을 영어만 또는 한국어만으로 통일
+- README·`docs/changelog/` 본문 전체를 커밋 메시지에 복붙
+
+push 전 미리보기·승인 절차는 `push-changelog-confirm` rule을 따른다.

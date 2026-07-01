@@ -5,7 +5,8 @@ namespace ClockWork.Game.Editor
 {
     static class PlayerSpriteAnimationBuilder
     {
-        const string IdleAnimPath = "Assets/Game/art/player/Player_Idle.anim";
+        const string IdleLeftAnimPath = "Assets/Game/art/player/Player_Idle.anim";
+        const string IdleRightAnimPath = "Assets/Game/art/player/Player_Idle_Right.anim";
         const string WalkAnimPath = "Assets/Game/art/player/Player_Walk.anim";
         const float WalkFrameDuration = 0.15f;
 
@@ -14,7 +15,7 @@ namespace ClockWork.Game.Editor
 
         public static void RebuildAll()
         {
-            if (!PlayerSpriteSheetResolver.TryGetIdleSprites(out Sprite idleLeft, out _))
+            if (!PlayerSpriteSheetResolver.TryGetIdleSprites(out Sprite idleLeft, out Sprite idleRight))
             {
                 Debug.LogWarning("[PlayerSpriteAnimationBuilder] Idle sprites not found.");
                 return;
@@ -27,15 +28,16 @@ namespace ClockWork.Game.Editor
                 return;
             }
 
-            RebuildIdleClip(idleLeft);
+            RebuildIdleClip(IdleLeftAnimPath, idleLeft);
+            RebuildIdleClip(IdleRightAnimPath, idleRight);
             RebuildWalkClip(walkFrames);
             AssetDatabase.SaveAssets();
-            Debug.Log("[PlayerSpriteAnimationBuilder] Rebuilt Player_Idle and Player_Walk.");
+            Debug.Log("[PlayerSpriteAnimationBuilder] Rebuilt Player_Idle (left), Player_Idle_Right, and Player_Walk.");
         }
 
-        static void RebuildIdleClip(Sprite idleSprite)
+        static void RebuildIdleClip(string path, Sprite idleSprite)
         {
-            AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(IdleAnimPath);
+            AnimationClip clip = AssetDatabase.LoadAssetAtPath<AnimationClip>(path);
             if (clip == null)
                 return;
 

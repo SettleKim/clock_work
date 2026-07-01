@@ -7,29 +7,36 @@ namespace ClockWork.Game
     public class PlayerCharacterVisual : MonoBehaviour
     {
         static readonly int SpeedHash = Animator.StringToHash("Speed");
+        static readonly int FaceLeftHash = Animator.StringToHash("FaceLeft");
+        static readonly int IdleLeftHash = Animator.StringToHash("Idle_Left");
+        static readonly int IdleRightHash = Animator.StringToHash("Idle_Right");
+        static readonly int WalkHash = Animator.StringToHash("Walk");
 
         [SerializeField] float walkSpeedThreshold = 0.05f;
-        [SerializeField] Sprite idleRightSprite;
-        [SerializeField] Sprite idleLeftSprite;
 
         SpriteRenderer spriteRenderer;
         Animator animator;
         int facingSign = 1;
         bool isWalking;
+        bool isAttacking;
 
-        public void ConfigureIdleSprites(Sprite right, Sprite left)
+        public void SetAttacking(bool attacking)
         {
-            if (right != null)
-                idleRightSprite = right;
-            if (left != null)
-                idleLeftSprite = left;
+            isAttacking = attacking;
+            if (!attacking)
+                RestoreLocomotionState();
         }
 
         void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
-            ResolveIdleSpritesIfNeeded();
+        }
+
+        void Start()
+        {
+            if (animator != null)
+                animator.SetBool(FaceLeftHash, facingSign < 0);
         }
 
         public void ApplyMovement(float moveInputX, bool allowWalkAnimation)
@@ -39,11 +46,11 @@ namespace ClockWork.Game
 
             isWalking = allowWalkAnimation && Mathf.Abs(moveInputX) > walkSpeedThreshold;
 
-            if (animator != null)
-            {
-                float speed = isWalking ? Mathf.Abs(moveInputX) : 0f;
-                animator.SetFloat(SpeedHash, speed);
-            }
+            if (animator == null)
+                return;
+
+            animator.SetBool(FaceLeftHash, facingSign < 0);
+            animator.SetFloat(SpeedHash, isWalking ? Mathf.Abs(moveInputX) : 0f);
         }
 
         void LateUpdate()
@@ -51,39 +58,30 @@ namespace ClockWork.Game
             if (spriteRenderer == null)
                 return;
 
+            spriteRenderer.flipX = ShouldMirrorSprite() && facingSign < 0;
+        }
+
+        bool ShouldMirrorSprite()
+        {
+            if (animator == null)
+                return false;
+
+            var state = animator.GetCurrentAnimatorStateInfo(0);
+            return state.IsName("Walk")
+                || state.IsName("tick_attack_fist_1")
+                || state.IsName("tick_attack_fist_2")
+                || state.IsName("tick_attack_fist_3");
+        }
+
+        void RestoreLocomotionState()
+        {
+            if (animator == null)
+                return;
+
             if (isWalking)
-            {
-                spriteRenderer.flipX = facingSign < 0;
-                return;
-            }
-
-            ApplyIdleSprite();
+                animator.Play(WalkHash, 0, 0f);
+            else
+                animator.Play(facingSign < 0 ? IdleLeftHash : IdleRightHash, 0, 0f);
         }
-
-        void ApplyIdleSprite()
-        {
-            spriteRenderer.flipX = false;
-
-            if (facingSign < 0 && idleLeftSprite != null)
-                spriteRenderer.sprite = idleLeftSprite;
-            else if (facingSign > 0 && idleRightSprite != null)
-                spriteRenderer.sprite = idleRightSprite;
-        }
-
-        void ResolveIdleSpritesIfNeeded()
-        {
-            if (idleRightSprite != null && idleLeftSprite != null)
-                return;
-
-            if (PlayerSpriteSheetResolver.TryGetIdleSprites(out Sprite left, out Sprite right))
-            {
-                idleLeftSprite ??= left;
-                idleRightSprite ??= right;
-            }
-        }
-
-#if UNITY_EDITOR
-        void OnValidate() => ResolveIdleSpritesIfNeeded();
-#endif
     }
 }

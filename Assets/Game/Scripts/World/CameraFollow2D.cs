@@ -5,7 +5,7 @@ namespace ClockWork.Game
     public class CameraFollow2D : MonoBehaviour
     {
         [SerializeField] Transform target;
-        [SerializeField] Vector3 offset = new(0f, 0f, -10f);
+        [SerializeField] Vector3 offset = new(0f, 8.5f, -10f);
         [SerializeField] float smoothTime = 0.12f;
 
         Vector3 velocity;

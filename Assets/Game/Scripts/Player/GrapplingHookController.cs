@@ -54,6 +54,7 @@ namespace ClockWork.Game
 
         Rigidbody2D rb;
         PlayerInput playerInput;
+        PlayerMovement movement;
         InputAction interactAction;
         InputAction moveAction;
         InputAction jumpAction;
@@ -78,6 +79,8 @@ namespace ClockWork.Game
         float gravityBlendTimer;
         bool gravityBlendActive;
         bool selectionSlowMoActive;
+        bool selectingFromAnchorHold;
+        GrapplePoint anchorHoldPoint;
         float defaultGravityScale;
         LineRenderer ropeLine;
 
@@ -88,6 +91,9 @@ namespace ClockWork.Game
             phase == GrapplePhase.AnchorAttach ||
             phase == GrapplePhase.AnchorHold ||
             phase == GrapplePhase.MomentumLaunch;
+        /// <summary>Momentum 앵커 쪽으로 비행 중(통과 전). 이동 입력 무시.</summary>
+        public bool IsApproachingMomentumAnchor =>
+            phase == GrapplePhase.MomentumLaunch && momentumApproachingAnchor;
         public bool AllowsPlayerJump =>
             phase == GrapplePhase.Selecting ||
             phase == GrapplePhase.Snapping ||
@@ -110,6 +116,9 @@ namespace ClockWork.Game
             float groundDeceleration,
             bool isGrounded)
         {
+            if (phase == GrapplePhase.MomentumLaunch)
+                return rb.linearVelocity.x;
+
             if (!carriedMomentumActive)
                 return rb.linearVelocity.x;
 
@@ -225,6 +234,7 @@ namespace ClockWork.Game
         {
             rb = GetComponent<Rigidbody2D>();
             playerInput = GetComponent<PlayerInput>();
+            movement = GetComponent<PlayerMovement>();
             defaultGravityScale = rb.gravityScale;
 
             interactAction = playerInput.actions["Interact"];
@@ -302,7 +312,9 @@ namespace ClockWork.Game
                     break;
 
                 case GrapplePhase.AnchorHold:
-                    if (ShouldReleaseFromAnchor())
+                    if (interactAction.WasPressedThisFrame())
+                        TryEnterSelectionFromAnchor();
+                    else if (ShouldReleaseFromAnchor())
                         ReleaseFromAnchorHold();
                     break;
             }
@@ -348,6 +360,12 @@ namespace ClockWork.Game
         {
             TickGravityBlend();
 
+            if (phase == GrapplePhase.Selecting && selectingFromAnchorHold)
+            {
+                TickAnchorHold();
+                return;
+            }
+
             switch (phase)
             {
                 case GrapplePhase.Snapping:
@@ -363,6 +381,29 @@ namespace ClockWork.Game
                     TickMomentumLaunch();
                     break;
             }
+        }
+
+        void TryEnterSelectionFromAnchor()
+        {
+            if (activePoint == null)
+                return;
+
+            GatherSelectablePoints();
+            selectablePoints.RemoveAll(point => point == activePoint);
+            if (selectablePoints.Count == 0)
+                return;
+
+            anchorHoldPoint = activePoint;
+            selectingFromAnchorHold = true;
+            selectedPoint = FindNearestPoint();
+            phase = GrapplePhase.Selecting;
+
+            EnterSelectionSlowMo();
+            ropeLine.enabled = true;
+            ropeLine.startColor = previewRopeColor;
+            ropeLine.endColor = previewRopeColor;
+            UpdateSelectionVisuals();
+            UpdatePreviewRope();
         }
 
         void TryEnterSelection()
@@ -383,6 +424,9 @@ namespace ClockWork.Game
         void UpdateSelectionPoints()
         {
             GatherSelectablePoints();
+
+            if (selectingFromAnchorHold)
+                selectablePoints.RemoveAll(point => point == anchorHoldPoint);
 
             if (selectedPoint != null && selectablePoints.Contains(selectedPoint))
                 return;
@@ -495,6 +539,8 @@ namespace ClockWork.Game
 
         void ConfirmSelection()
         {
+            selectingFromAnchorHold = false;
+            anchorHoldPoint = null;
             ExitSelectionSlowMo();
 
             if (selectedPoint == null)
@@ -517,6 +563,26 @@ namespace ClockWork.Game
         void CancelSelection()
         {
             ExitSelectionSlowMo();
+
+            if (selectingFromAnchorHold && anchorHoldPoint != null)
+            {
+                selectingFromAnchorHold = false;
+                activePoint = anchorHoldPoint;
+                anchorHoldPoint = null;
+                selectedPoint = null;
+                selectablePoints.Clear();
+                phase = GrapplePhase.AnchorHold;
+                ropeTarget = GetRopeTarget(activePoint);
+                ropeLine.enabled = true;
+                ropeLine.startColor = ropeColor;
+                ropeLine.endColor = ropeColor;
+                ResetPointHighlights();
+                UpdateRope(hookOrigin.position, ropeTarget);
+                return;
+            }
+
+            selectingFromAnchorHold = false;
+            anchorHoldPoint = null;
             phase = GrapplePhase.Idle;
             selectedPoint = null;
             selectablePoints.Clear();
@@ -592,11 +658,7 @@ namespace ClockWork.Game
 
         bool ShouldReleaseFromAnchor()
         {
-            if (jumpAction != null && jumpAction.WasPressedThisFrame())
-                return true;
-
-            Vector2 move = moveAction.ReadValue<Vector2>();
-            return move.sqrMagnitude >= directionSelectThreshold * directionSelectThreshold;
+            return jumpAction != null && jumpAction.WasPressedThisFrame();
         }
 
         void ReleaseFromAnchorHold()
@@ -605,10 +667,6 @@ namespace ClockWork.Game
 
             if (jumpAction != null && jumpAction.WasPressedThisFrame())
                 releaseVelocity.y = anchorReleaseJumpForce;
-
-            Vector2 move = moveAction.ReadValue<Vector2>();
-            if (move.sqrMagnitude >= directionSelectThreshold * directionSelectThreshold)
-                releaseVelocity += move.normalized * anchorReleaseMoveSpeed;
 
             phase = GrapplePhase.Idle;
             activePoint = null;
@@ -647,12 +705,22 @@ namespace ClockWork.Game
                 return;
 
             rb.linearVelocity = Vector2.zero;
+            EnterAnchorHold();
+        }
+
+        void EnterAnchorHold()
+        {
             phase = GrapplePhase.AnchorHold;
+            movement?.RefreshAirJumps();
         }
 
         void TickMomentumLaunch()
         {
             momentumElapsed += Time.fixedDeltaTime;
+
+            if (momentumApproachingAnchor)
+                rb.linearVelocity = new Vector2(launchVelocity.x, rb.linearVelocity.y);
+
             UpdateRope(hookOrigin.position, ropeTarget);
 
             if (HasReachedMomentumAnchor() || momentumElapsed >= momentumMaxDuration)
@@ -674,6 +742,7 @@ namespace ClockWork.Game
             carriedMomentumActive = true;
             momentumCoastTimer = momentumPreserveDuration;
             BeginGravityBlend();
+            movement?.RefreshAirJumps();
 
             phase = GrapplePhase.Idle;
             activePoint = null;

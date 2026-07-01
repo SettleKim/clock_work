@@ -25,7 +25,15 @@ namespace ClockWork.Game
                 player.AddComponent<Health>();
 
             if (player.GetComponent<PlayerFistCombat>() == null)
-                player.AddComponent<PlayerFistCombat>();
+            {
+                var fistCombat = player.AddComponent<PlayerFistCombat>();
+#if UNITY_EDITOR
+                var fistCombo = UnityEditor.AssetDatabase.LoadAssetAtPath<ComboDefinition>(
+                    "Assets/Game/Resources/Combos/FistCombo.asset");
+                if (fistCombo != null)
+                    fistCombat.ConfigureCombo(fistCombo);
+#endif
+            }
 
             PlayerVisualSetup.EnsureAndConfigure(player);
         }

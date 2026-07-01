@@ -56,6 +56,8 @@ namespace ClockWork.Game
         public bool IsGrounded { get; private set; }
         public int FacingDirection => facingDirection;
 
+        public void RefreshAirJumps() => airJumpsRemaining = maxAirJumps;
+
         void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
@@ -167,6 +169,7 @@ namespace ClockWork.Game
             bool blocksMovement = grapple != null && grapple.BlocksPlayerMovement;
 
             Vector2 moveInput = moveAction.ReadValue<Vector2>();
+            float moveX = blocksMovement ? 0f : moveInput.x;
 
             if (!blocksJump)
             {
@@ -181,11 +184,11 @@ namespace ClockWork.Game
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * jumpCutMultiplier);
             }
 
-            if (!blocksMovement && Mathf.Abs(moveInput.x) > 0.05f)
-                facingDirection = moveInput.x > 0f ? 1 : -1;
+            if (!blocksMovement && Mathf.Abs(moveX) > 0.05f)
+                facingDirection = moveX > 0f ? 1 : -1;
 
             if (characterVisual != null)
-                characterVisual.ApplyMovement(moveInput.x, !blocksMovement);
+                characterVisual.ApplyMovement(moveX, !blocksMovement);
             else if (!blocksMovement)
                 UpdateVisualFacing();
         }
@@ -226,7 +229,9 @@ namespace ClockWork.Game
             if (!blocksMovement)
             {
                 Vector2 moveInput = moveAction.ReadValue<Vector2>();
-                float horizontalInput = moveInput.x;
+                float horizontalInput = grapple != null && grapple.IsApproachingMomentumAnchor
+                    ? 0f
+                    : moveInput.x;
                 float vx = rb.linearVelocity.x;
 
                 if (grapple != null && grapple.HasCarriedMomentum)
