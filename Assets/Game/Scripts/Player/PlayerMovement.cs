@@ -25,6 +25,7 @@ namespace ClockWork.Game
         [Header("Air Jump")]
         [SerializeField] float airJumpForce = 10f;
         [SerializeField] int maxAirJumps = 1;
+        [SerializeField] bool airJumpEnabled = true;
 
         [Header("Collider")]
         [SerializeField] bool feetAtTransform = true;
@@ -38,9 +39,12 @@ namespace ClockWork.Game
         CapsuleCollider2D bodyCollider;
         PlayerInput playerInput;
         GrapplingHookController grapple;
+        PlayerFistCombat fistCombat;
+        PlayerCombatMode combatMode;
         PlayerCharacterVisual characterVisual;
         InputAction moveAction;
         InputAction jumpAction;
+        InputAction toggleAirJumpAction;
         SpriteRenderer spriteRenderer;
 
         float coyoteCounter;
@@ -55,8 +59,9 @@ namespace ClockWork.Game
 
         public bool IsGrounded { get; private set; }
         public int FacingDirection => facingDirection;
+        public bool AirJumpEnabled => airJumpEnabled;
 
-        public void RefreshAirJumps() => airJumpsRemaining = maxAirJumps;
+        public void RefreshAirJumps() => airJumpsRemaining = airJumpEnabled ? maxAirJumps : 0;
 
         void Awake()
         {
@@ -64,6 +69,8 @@ namespace ClockWork.Game
             bodyCollider = GetComponent<CapsuleCollider2D>();
             playerInput = GetComponent<PlayerInput>();
             grapple = GetComponent<GrapplingHookController>();
+            fistCombat = GetComponent<PlayerFistCombat>();
+            combatMode = GetComponent<PlayerCombatMode>();
             characterVisual = GetComponentInChildren<PlayerCharacterVisual>();
             spriteRenderer = characterVisual != null
                 ? characterVisual.GetComponent<SpriteRenderer>()
@@ -71,6 +78,7 @@ namespace ClockWork.Game
 
             moveAction = playerInput.actions["Move"];
             jumpAction = playerInput.actions["Jump"];
+            toggleAirJumpAction = playerInput.actions.FindAction("ToggleAirJump", false);
 
             rb.gravityScale = 3f;
             rb.freezeRotation = true;
@@ -88,7 +96,16 @@ namespace ClockWork.Game
         {
             if (characterVisual == null)
                 characterVisual = GetComponentInChildren<PlayerCharacterVisual>();
+
+            if (fistCombat == null)
+                fistCombat = GetComponent<PlayerFistCombat>();
         }
+
+        float EffectiveMoveSpeed =>
+            moveSpeed + (combatMode != null ? combatMode.HoldMoveSpeedBonus : 0f);
+
+        bool IsPowerAttackLockingMovement =>
+            fistCombat != null && fistCombat.IsPowerAttacking;
 
 #if UNITY_EDITOR
         void OnValidate()
@@ -165,8 +182,13 @@ namespace ClockWork.Game
 
         void Update()
         {
-            bool blocksJump = grapple != null && grapple.IsActive && !grapple.AllowsPlayerJump;
-            bool blocksMovement = grapple != null && grapple.BlocksPlayerMovement;
+            if (toggleAirJumpAction != null && toggleAirJumpAction.WasPressedThisFrame())
+                SetAirJumpEnabled(!airJumpEnabled);
+
+            bool blocksJump = (grapple != null && grapple.IsActive && !grapple.AllowsPlayerJump)
+                || IsPowerAttackLockingMovement;
+            bool blocksMovement = (grapple != null && grapple.BlocksPlayerMovement)
+                || IsPowerAttackLockingMovement;
 
             Vector2 moveInput = moveAction.ReadValue<Vector2>();
             float moveX = blocksMovement ? 0f : moveInput.x;
@@ -195,8 +217,10 @@ namespace ClockWork.Game
 
         void FixedUpdate()
         {
-            bool blocksJump = grapple != null && grapple.IsActive && !grapple.AllowsPlayerJump;
-            bool blocksMovement = grapple != null && grapple.BlocksPlayerMovement;
+            bool blocksJump = (grapple != null && grapple.IsActive && !grapple.AllowsPlayerJump)
+                || IsPowerAttackLockingMovement;
+            bool blocksMovement = (grapple != null && grapple.BlocksPlayerMovement)
+                || IsPowerAttackLockingMovement;
 
             IsGrounded = CheckGrounded();
 
@@ -206,7 +230,7 @@ namespace ClockWork.Game
                 coyoteCounter -= Time.fixedDeltaTime;
 
             if (IsGrounded && !wasGrounded)
-                airJumpsRemaining = maxAirJumps;
+                airJumpsRemaining = airJumpEnabled ? maxAirJumps : 0;
 
             wasGrounded = IsGrounded;
 
@@ -218,7 +242,7 @@ namespace ClockWork.Game
                     jumpBufferCounter = 0f;
                     coyoteCounter = 0f;
                 }
-                else if (airJumpsRemaining > 0)
+                else if (airJumpEnabled && airJumpsRemaining > 0)
                 {
                     Jump(airJumpForce);
                     airJumpsRemaining--;
@@ -237,7 +261,7 @@ namespace ClockWork.Game
                 if (grapple != null && grapple.HasCarriedMomentum)
                 {
                     vx = grapple.BleedHorizontalMomentum(
-                        moveSpeed,
+                        EffectiveMoveSpeed,
                         horizontalInput,
                         Time.fixedDeltaTime,
                         airAcceleration,
@@ -248,7 +272,7 @@ namespace ClockWork.Game
                 }
                 else if (Mathf.Abs(horizontalInput) > 0.05f)
                 {
-                    float targetSpeed = horizontalInput * moveSpeed;
+                    float targetSpeed = horizontalInput * EffectiveMoveSpeed;
                     float speedDifference = targetSpeed - vx;
                     float accelerationRate = IsGrounded ? groundAcceleration : airAcceleration;
                     float velocityChange = speedDifference * accelerationRate * Time.fixedDeltaTime;
@@ -272,6 +296,12 @@ namespace ClockWork.Game
                 rb.linearVelocity += Vector2.up * Physics2D.gravity.y *
                     (lowJumpGravityMultiplier - 1f) * Time.fixedDeltaTime;
             }
+        }
+
+        void SetAirJumpEnabled(bool enabled)
+        {
+            airJumpEnabled = enabled;
+            airJumpsRemaining = enabled ? maxAirJumps : 0;
         }
 
         void Jump(float force)

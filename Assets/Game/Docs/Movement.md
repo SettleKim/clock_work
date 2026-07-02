@@ -58,7 +58,9 @@
 - **구현:** `PlayerMovement.cs`
   - `maxAirJumps` — 공중 점프 횟수 (기본 1)
   - `airJumpForce` — 공중 점프 힘 (`jumpForce`보다 낮게 설정)
+  - `airJumpEnabled` — 런타임 이단 점프 허용 여부 (기본 켜짐)
   - 착지 시 `airJumpsRemaining` 리셋
+- **입력:** `ToggleAirJump` (**J**) — 이단 점프 켜기/끄기 토글
 - **추후:** 공중 점프 높이·횟수 밸런스
 
 ---
@@ -73,16 +75,32 @@
 - **스크립트**
   - `Scripts/Player/GrapplingHookController.cs` — 선택·스냅·앵커/모멘텀 처리
   - `Scripts/World/GrapplePoint.cs` — 포인트 종류·반경
-  - `Scripts/World/GrappleSlowMotion.cs` — 선택 중 슬로모
-- **입력:** `Interact` (E) — 포인트 선택 / 확정
+  - `Scripts/World/CombatSlowMotion.cs` — W 홀드 등 전역 슬로모 (`PlayerCombatMode` 소유)
+- **입력:** `Interact` (E) — 포인트 선택 / 확정 · `GrappleCancel` (X) — 선택 취소
 - **포인트 종류**
   | 종류 | 색 (기본) | 동작 |
   |------|-----------|------|
-  | **Anchor** | 청록 | 붙는 위치(`AttachPosition`)까지 스냅 후 고정. **점프 입력** 시 해제 (`anchorReleaseJumpForce`) |
-  | **Momentum** | 노랑 | 플레이어→앵커 방향으로 관성 발사, 앵커 통과 시 로프 해제·관성 유지 |
+  | **Anchor** | 청록 | 붙는 위치(`AttachPosition`)까지 스냅 후 고정. **점프 입력** 시 해제 (`anchorReleaseJumpForce`). 쿨타임 없음 |
+  | **Momentum** | 노랑 | 플레이어→앵커 방향으로 관성 발사, 앵커 통과 시 로프 해제·관성 유지. **포인트별** `momentumPointCooldown` (기본 0.5초) |
 
-- **선택 흐름:** E → 슬로모 + 방향키로 포인트 선택 → E 확정 → 로프 스냅 → Anchor / Momentum 분기
+- **관성 쿨타임:** `momentumPointCooldown` (기본 0.5초) — 사용한 **Momentum 포인트만** E 재선택 불가. 다른 Momentum·Anchor는 즉시 선택 가능
+
+- **선택 흐름:** E → (선택) W 홀드로 슬로모 조준 → 방향키로 포인트 선택 → E 확정 → 로프 스냅 → Anchor / Momentum 분기
 - **Momentum 해제 후:** x·y 관성 유지 → `momentumBleedRate`로 walk 속도까지 감쇠, `gravityRestoreDuration`으로 중력 복구
+
+### Momentum 발사 속도·비행 거리
+
+**현재 구현** (`BeginAfterSnap`):
+
+```text
+speed = 포인트 LaunchSpeed × launchSpeedMultiplier
+```
+
+→ 플레이어 **현재 속도는 반영하지 않음**. 포인트마다 발사 속도가 고정되어 비행 거리가 일정에 가깝다.
+
+완전 동일한 착지 거리는 아님 — 플레이어·포인트 **상대 위치**(발사 각도), `launchGravityScale`, 통과 후 `momentumBleedRate`가 궤적에 영향.
+
+**보류 아이디어 (기록):** 플레이어 **현재 속도를 발사에 일부 반영** (`Max(현재 속도, 포인트 속도, …)`). 연속 Momentum·낙하 갈고리에서 스킬 표현은 좋으나 거리 일정 목표와 트레이드오프. 필요 시 옵션·능력으로 분리 검토.
 
 ### 기획 방향 (맵·능력과 연동)
 
@@ -97,7 +115,7 @@
 
 ### 추후 조정
 
-- `launchSpeed`, `launchGravityScale`, 스냅·통과 반경
+- `launchSpeed`(포인트)·`launchSpeedMultiplier`, `launchGravityScale`, 스냅·통과 반경
 - Anchor 붙음 시간·해제 조건
 - 포인트 `useRadius`, 맵별 배치 가이드
 
@@ -107,11 +125,11 @@
 
 ```
 Game/
-  Input/InputSystem_Actions.inputactions   ← Move, Jump, Interact
+  Input/InputSystem_Actions.inputactions   ← Move, Jump, Interact, GrappleCancel, ToggleAirJump
   Scripts/Player/PlayerMovement.cs
   Scripts/Player/GrapplingHookController.cs
   Scripts/World/GrapplePoint.cs
-  Scripts/World/GrappleSlowMotion.cs
+  Scripts/World/CombatSlowMotion.cs
   Scenes/Game_Main.unity                   ← 테스트용 GrapplePoint 배치
 ```
 

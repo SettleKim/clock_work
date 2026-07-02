@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ClockWork.Game
 {
-    public static class GrappleSlowMotion
+    public static class CombatSlowMotion
     {
         static float savedTimeScale = 1f;
         static float savedFixedDeltaTime;

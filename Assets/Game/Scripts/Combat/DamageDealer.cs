@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ namespace ClockWork.Game
         float lastHitTime;
 
         public float Damage => damage;
+
+        public event Action<Health> OnHit;
 
         public void Configure(float newDamage, DamageType type = DamageType.Physical, bool shouldDestroyOnHit = false)
         {
@@ -56,6 +59,7 @@ namespace ClockWork.Game
             hitTargets.Add(health);
             lastHitTime = Time.time;
             health.ApplyDamage(DamageInfo.Physical(damage, gameObject));
+            OnHit?.Invoke(health);
 
             if (destroyOnHit)
                 Destroy(gameObject);

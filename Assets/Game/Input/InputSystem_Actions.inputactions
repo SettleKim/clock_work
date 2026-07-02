@@ -87,24 +87,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "MagicAttack",
-                    "type": "Button",
-                    "id": "a8f3c2d1-4e5b-6a7c-8d9e-0f1a2b3c4d5e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Grapple",
-                    "type": "Button",
-                    "id": "b9a4d3e2-f6a7-5b8c-9d0e-1f2a3b4c5d6e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "GrappleCancel",
                     "type": "Button",
                     "id": "c9d0e1f2-a3b4-5c6d-7e8f-9a0b1c2d3e4f",
@@ -123,7 +105,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "UseConsumable",
+                    "name": "WeaponNext",
                     "type": "Button",
                     "id": "a7b8c9d0-e1f2-4a3b-5c6d-7e8f9a0b1c2d",
                     "expectedControlType": "Button",
@@ -135,6 +117,33 @@
                     "name": "Block",
                     "type": "Button",
                     "id": "b8c9d0e1-f2a3-4b5c-6d7e-8f9a0b1c2d3e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PowerMode",
+                    "type": "Button",
+                    "id": "d0e1f2a3-b4c5-6d7e-8f9a-0b1c2d3e4f50",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "WeaponSlot1",
+                    "type": "Button",
+                    "id": "e1f2a3b4-c5d6-7e8f-9a0b-1c2d3e4f5061",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "WeaponSlot2",
+                    "type": "Button",
+                    "id": "f2a3b4c5-d6e7-8f9a-0b1c-2d3e4f506172",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -320,41 +329,8 @@
                 },
                 {
                     "name": "",
-                    "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "MagicAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Grapple",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d4e5f6a7-b8c9-0123-def0-234567890123",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Grapple",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b9c0d1e2-f3a4-5678-9abc-def012345678",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -391,7 +367,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "UseConsumable",
+                    "action": "WeaponNext",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -402,7 +378,51 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Block",
+                    "action": "PowerMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                    "path": "<Keyboard>/numpad1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "WeaponSlot1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "WeaponSlot1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+                    "path": "<Keyboard>/numpad2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "WeaponSlot2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d4e5f6a7-b8c9-0123-def0-234567890123",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "WeaponSlot2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

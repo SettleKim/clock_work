@@ -600,7 +600,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -626,7 +626,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.8158126, y: 6.0462847, z: 3.5178387}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -688,7 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: ClockWork.Game::ClockWork.Game.CameraFollow2D
   target: {fileID: 1348376494}
-  offset: {x: 0, y: 8.5, z: -10}
+  offset: {x: 0, y: 6, z: -10}
   smoothTime: 0.12
 --- !u!1 &900000001
 GameObject:
@@ -1170,6 +1170,7 @@ MonoBehaviour:
   lowJumpGravityMultiplier: 2
   airJumpForce: 16
   maxAirJumps: 1
+  airJumpEnabled: 1
   feetAtTransform: 1
   groundCheck: {fileID: 1348376498}
   groundCheckSize: {x: 0.55, y: 0.08}
@@ -1251,17 +1252,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: ClockWork.Game::ClockWork.Game.GrapplingHookController
   hookOrigin: {fileID: 0}
   selectionRadius: 14
-  slowMotionScale: 0.16
   directionSelectThreshold: 0.2
-  selectionMode: 0
-  slowMoUnlockedByFeature: 0
-  debugToggleSlowMoKey: 21
   anchorAttachDuration: 0.18
   anchorReleaseMoveSpeed: 8
   anchorReleaseJumpForce: 14
+  momentumPointCooldown: 0.5
   launchGravityScale: 0.12
   launchSpeedMultiplier: 1
-  minLaunchSpeed: 24
   momentumPassRadius: 0.45
   momentumMaxDuration: 4
   momentumPreserveDuration: 0.45
@@ -1765,7 +1762,7 @@ Transform:
   m_GameObject: {fileID: 1663224132}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 6, z: 0}
+  m_LocalPosition: {x: 4.65, y: 4.19, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []

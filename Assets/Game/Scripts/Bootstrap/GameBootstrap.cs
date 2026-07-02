@@ -13,6 +13,9 @@ namespace ClockWork.Game
         {
             Debug.Log(welcomeMessage);
             EnsurePlayerCombat();
+            EnsureEnergyGaugeUI();
+            EnsureWeaponSlotUI();
+            EnsureCombatTapWindowUI();
         }
 
         void EnsurePlayerCombat()
@@ -24,6 +27,9 @@ namespace ClockWork.Game
             if (player.GetComponent<Health>() == null)
                 player.AddComponent<Health>();
 
+            if (player.GetComponent<PlayerEnergyGauge>() == null)
+                player.AddComponent<PlayerEnergyGauge>();
+
             if (player.GetComponent<PlayerFistCombat>() == null)
             {
                 var fistCombat = player.AddComponent<PlayerFistCombat>();
@@ -32,10 +38,45 @@ namespace ClockWork.Game
                     "Assets/Game/Resources/Combos/FistCombo.asset");
                 if (fistCombo != null)
                     fistCombat.ConfigureCombo(fistCombo);
+
+                var fistPowerAttack = UnityEditor.AssetDatabase.LoadAssetAtPath<PowerAttackDefinition>(
+                    "Assets/Game/Resources/Combos/FistPowerAttack.asset");
+                if (fistPowerAttack != null)
+                    fistCombat.ConfigurePowerAttack(fistPowerAttack);
 #endif
             }
 
+            if (player.GetComponent<PlayerWeaponController>() == null)
+                player.AddComponent<PlayerWeaponController>();
+
+            if (player.GetComponent<PlayerCombatMode>() == null)
+                player.AddComponent<PlayerCombatMode>();
+
             PlayerVisualSetup.EnsureAndConfigure(player);
+        }
+
+        void EnsureEnergyGaugeUI()
+        {
+            if (FindFirstObjectByType<EnergyGaugeUI>() != null)
+                return;
+
+            gameObject.AddComponent<EnergyGaugeUI>();
+        }
+
+        void EnsureWeaponSlotUI()
+        {
+            if (FindFirstObjectByType<WeaponSlotUI>() != null)
+                return;
+
+            gameObject.AddComponent<WeaponSlotUI>();
+        }
+
+        void EnsureCombatTapWindowUI()
+        {
+            if (FindFirstObjectByType<CombatTapWindowUI>() != null)
+                return;
+
+            gameObject.AddComponent<CombatTapWindowUI>();
         }
     }
 }
