@@ -18,7 +18,7 @@
 
 - **상태:** 완료
 - **구현:** `Scripts/Player/PlayerMovement.cs`
-- **입력:** `Move` (WASD / 스틱)
+- **입력:** `Move` (방향키 / 스틱)
 - **동작:** 지상·공중 가속/감속 분리, `moveSpeed` 기준 목표 속도로 보간
 - **추후:** 가속·최고속·마찰 등 Inspector 수치 튜닝
 
