@@ -1,0 +1,43 @@
+#!/bin/sh
+# git ship — changelog 갱신 커밋을 push "직전"에 만들고, 단일 push로 함께 내보낸다.
+#
+# 왜 필요한가:
+#   pre-push 훅이 changelog 커밋을 만든 뒤 "스스로 push"하면, 바깥 push가
+#   이미 옮겨진 ref를 못 맞춰 매번 "remote rejected / cannot lock ref"를 뱉는다.
+#   여기서는 push "전"에 changelog를 커밋하므로 단 한 번의 push로 전부 나가고,
+#   훅은 아무 것도 하지 않아 에러가 없다. (설계 근거: .githooks/README.md)
+#
+# 사용:
+#   git ship                 # 현재 upstream으로 push
+#   git ship origin master   # 인자는 그대로 git push 로 전달
+set -e
+
+ROOT=$(git rev-parse --show-toplevel)
+cd "$ROOT"
+
+# Python 확인 (changelog 생성용)
+PYTHON=
+if command -v python >/dev/null 2>&1; then
+  PYTHON=python
+elif command -v py >/dev/null 2>&1; then
+  PYTHON=py
+else
+  echo "git ship: Python이 필요합니다 (changelog 갱신). https://www.python.org/downloads/"
+  exit 1
+fi
+
+# 1) changelog 갱신 + 커밋 (push 전에 미리 → 단일 push에 포함)
+set +e
+"$PYTHON" "$ROOT/.githooks/lib/update_changelog.py" --apply
+status=$?
+set -e
+if [ "$status" -eq 1 ]; then
+  echo "git ship: changelog 갱신 실패"
+  exit 1
+fi
+# status 0 = 커밋했거나 변경 없음 / 2 = push할 새 커밋 없음 → 둘 다 push 진행
+
+# 2) 단일 push. SHIP_PUSH=1 이면 pre-push 가드가 통과(아무 것도 안 함).
+echo "git ship: pushing..."
+SHIP_PUSH=1 git push "$@"
+echo "git ship: 완료"

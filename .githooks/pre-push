@@ -1,47 +1,34 @@
 #!/bin/sh
-# push 직전 docs/changelog/YYYY-MM.md 맨 위에 이번 push 기록 누적
-# 설치: git config core.hooksPath .githooks
+# push 가드 — changelog는 'git ship' 으로 반영한다 (자체 push 하지 않음).
+#
+#   git ship        → SHIP_PUSH=1 설정 → 이 훅은 통과(아무 것도 안 함)
+#   일반 git push   → changelog 없이 나가지 않도록 안내 후 차단
+#   그냥 push        → SHIP_PUSH=1 git push   또는   git push --no-verify
+#
+# (이전에는 이 훅이 changelog 커밋 후 스스로 push 해서 매번 "remote rejected"
+#  에러가 났다. 이제 changelog는 push "전"에 git ship 이 처리한다.)
 
-set -e
-
-if [ "$CHANGELOG_HOOK_RECURSIVE" = "1" ]; then
+if [ "$SHIP_PUSH" = "1" ]; then
   exit 0
 fi
 
-ROOT=$(git rev-parse --show-toplevel)
-cd "$ROOT"
-
-PYTHON=
-if command -v python >/dev/null 2>&1; then
-  PYTHON=python
-elif command -v py >/dev/null 2>&1; then
-  PYTHON=py
+# upstream 대비 push할 새 커밋 수
+if git rev-parse --verify -q '@{u}' >/dev/null 2>&1; then
+  ahead=$(git rev-list --count '@{u}..HEAD' 2>/dev/null || echo 1)
 else
-  echo "pre-push: Python이 필요합니다 (changelog 갱신)."
-  echo "       https://www.python.org/downloads/"
+  ahead=1
+fi
+
+if [ "${ahead:-0}" -gt 0 ]; then
+  echo "──────────────────────────────────────────────"
+  echo " changelog 자동 반영을 위해 'git ship' 으로 push하세요:"
+  echo "     git ship"
+  echo "   (= docs/changelog 갱신 커밋 + push 를 한 번에)"
+  echo ""
+  echo " changelog 없이 그냥 push하려면:"
+  echo "     git push --no-verify      또는      SHIP_PUSH=1 git push"
+  echo "──────────────────────────────────────────────"
   exit 1
 fi
 
-commits_before=$(git rev-parse HEAD)
-
-"$PYTHON" "$ROOT/.githooks/lib/update_changelog.py" --apply
-status=$?
-
-if [ "$status" -eq 2 ]; then
-  echo "pre-push: push할 새 커밋 없음 — changelog 생략"
-  exit 0
-fi
-
-if [ "$status" -ne 0 ]; then
-  exit 1
-fi
-
-commits_after=$(git rev-parse HEAD)
-if [ "$commits_before" != "$commits_after" ]; then
-  branch=$(git symbolic-ref --short HEAD 2>/dev/null || echo "master")
-  echo "pre-push: changelog 커밋 follow-up push"
-  CHANGELOG_HOOK_RECURSIVE=1 git push --no-verify "$1" "HEAD:${branch}"
-fi
-
-echo "pre-push: changelog 반영 완료 — push 계속"
 exit 0
