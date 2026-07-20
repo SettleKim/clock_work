@@ -35,12 +35,12 @@ namespace ClockWork.Game
                 var fistCombat = player.AddComponent<PlayerFistCombat>();
 #if UNITY_EDITOR
                 var fistCombo = UnityEditor.AssetDatabase.LoadAssetAtPath<ComboDefinition>(
-                    "Assets/Game/Resources/Combos/FistCombo.asset");
+                    "Assets/_MainGame/Resources/Combos/FistCombo.asset");
                 if (fistCombo != null)
                     fistCombat.ConfigureCombo(fistCombo);
 
                 var fistPowerAttack = UnityEditor.AssetDatabase.LoadAssetAtPath<PowerAttackDefinition>(
-                    "Assets/Game/Resources/Combos/FistPowerAttack.asset");
+                    "Assets/_MainGame/Resources/Combos/FistPowerAttack.asset");
                 if (fistPowerAttack != null)
                     fistCombat.ConfigurePowerAttack(fistPowerAttack);
 #endif

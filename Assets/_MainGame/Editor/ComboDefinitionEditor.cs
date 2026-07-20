@@ -5,14 +5,14 @@ namespace ClockWork.Game.Editor
 {
     static class ComboDefinitionEditor
     {
-        const string FistComboAssetPath = "Assets/Game/Resources/Combos/FistCombo.asset";
-        const string HammerComboAssetPath = "Assets/Game/Resources/Combos/HammerCombo.asset";
-        const string HammerWeaponAssetPath = "Assets/Game/Resources/Weapons/Hammer.asset";
+        const string FistComboAssetPath = "Assets/_MainGame/Resources/Combos/FistCombo.asset";
+        const string HammerComboAssetPath = "Assets/_MainGame/Resources/Combos/HammerCombo.asset";
+        const string HammerWeaponAssetPath = "Assets/_MainGame/Resources/Weapons/Hammer.asset";
 
         [MenuItem("Clock Work/Combat/Ensure Fist Combo Asset")]
         public static void EnsureFistComboAsset()
         {
-            EnsureFolder("Assets/Game/Resources/Combos");
+            EnsureFolder("Assets/_MainGame/Resources/Combos");
 
             var existing = AssetDatabase.LoadAssetAtPath<ComboDefinition>(FistComboAssetPath);
             if (existing != null)
@@ -30,8 +30,8 @@ namespace ClockWork.Game.Editor
         [MenuItem("Clock Work/Combat/Ensure Hammer Weapon Assets")]
         public static void EnsureHammerWeaponAssets()
         {
-            EnsureFolder("Assets/Game/Resources/Combos");
-            EnsureFolder("Assets/Game/Resources/Weapons");
+            EnsureFolder("Assets/_MainGame/Resources/Combos");
+            EnsureFolder("Assets/_MainGame/Resources/Weapons");
 
             var combo = AssetDatabase.LoadAssetAtPath<ComboDefinition>(HammerComboAssetPath);
             if (combo == null)

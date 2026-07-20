@@ -1,7 +1,7 @@
 # Legacy 프로토타입 (v0)
 
 `Assets/_Legacy`에는 2026-06-01~02 세션에서 만든 **실험용 프로토타입**이 보관되어 있습니다.  
-새 게임 개발은 `Assets/Game`에서 진행하고, 이 폴더는 **참고·에셋 재사용** 용도로만 사용하세요.
+새 게임 개발은 `Assets/_MainGame`에서 진행하고, 이 폴더는 **참고·에셋 재사용** 용도로만 사용하세요.
 
 ## 포함 내용
 
@@ -27,7 +27,7 @@
 
 ## 재사용 팁
 
-- **스프라이트만 쓸 때:** `Resources/Gearbot` 또는 `Art/`에서 복사해 `Assets/Game/Resources/`로 옮기기
+- **스프라이트만 쓸 때:** `Resources/Gearbot` 또는 `Art/`에서 복사해 `Assets/_MainGame/Resources/`로 옮기기
 - **코드 참고만:** 클래스 이름 그대로 `Game`에 복붙하지 말고, 필요한 로직만 발췌
 - **맵 부트스트랩:** `UndergroundMapBootstrap`은 런타임 동적 생성 방식 — 새 게임에서는 씬/Prefab 기반으로 다시 설계 권장
 

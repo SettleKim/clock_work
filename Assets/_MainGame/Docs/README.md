@@ -1,6 +1,6 @@
 # 기능 명세 (Docs)
 
-`Assets/Game/Docs/` 아래에 **기능별·도메인별** 구현 메모와 **추후 확인 사항(Future)** 을 둡니다.
+`Assets/_MainGame/Docs/` 아래에 **기능별·도메인별** 구현 메모와 **추후 확인 사항(Future)** 을 둡니다.
 
 ## 목적
 

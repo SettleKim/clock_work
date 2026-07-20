@@ -5,8 +5,8 @@ namespace ClockWork.Game
 {
     public static class PlayerSpriteSheetResolver
     {
-        public const string WaitSheetPath = "Assets/Game/art/player/tick - wait.png";
-        public const string WalkSheetPath = "Assets/Game/art/player/tick - walk.png";
+        public const string WaitSheetPath = "Assets/_MainGame/art/player/tick - wait.png";
+        public const string WalkSheetPath = "Assets/_MainGame/art/player/tick - walk.png";
 
         public static Sprite[] LoadSpritesSortedByX(string assetPath)
         {

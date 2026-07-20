@@ -5,9 +5,9 @@ namespace ClockWork.Game.Editor
 {
     static class PlayerSpriteAnimationBuilder
     {
-        const string IdleLeftAnimPath = "Assets/Game/art/player/Player_Idle.anim";
-        const string IdleRightAnimPath = "Assets/Game/art/player/Player_Idle_Right.anim";
-        const string WalkAnimPath = "Assets/Game/art/player/Player_Walk.anim";
+        const string IdleLeftAnimPath = "Assets/_MainGame/art/player/Player_Idle.anim";
+        const string IdleRightAnimPath = "Assets/_MainGame/art/player/Player_Idle_Right.anim";
+        const string WalkAnimPath = "Assets/_MainGame/art/player/Player_Walk.anim";
         const float WalkFrameDuration = 0.15f;
 
         [MenuItem("Clock Work/Player/Rebuild Idle && Walk Animations")]

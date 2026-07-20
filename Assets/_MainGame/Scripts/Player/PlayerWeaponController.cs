@@ -180,13 +180,13 @@ namespace ClockWork.Game
             if (fist == null)
             {
                 fist = UnityEditor.AssetDatabase.LoadAssetAtPath<WeaponDefinition>(
-                    "Assets/Game/Resources/Weapons/Fist.asset");
+                    "Assets/_MainGame/Resources/Weapons/Fist.asset");
             }
 
             if (hammer == null)
             {
                 hammer = UnityEditor.AssetDatabase.LoadAssetAtPath<WeaponDefinition>(
-                    "Assets/Game/Resources/Weapons/Hammer.asset");
+                    "Assets/_MainGame/Resources/Weapons/Hammer.asset");
             }
 #endif
 

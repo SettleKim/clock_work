@@ -146,7 +146,7 @@ namespace ClockWork.Game
             if (comboDefinition == null)
             {
                 comboDefinition = UnityEditor.AssetDatabase.LoadAssetAtPath<ComboDefinition>(
-                    "Assets/Game/Resources/Combos/FistCombo.asset");
+                    "Assets/_MainGame/Resources/Combos/FistCombo.asset");
             }
 #endif
 
@@ -165,7 +165,7 @@ namespace ClockWork.Game
             if (powerAttackDefinition == null)
             {
                 powerAttackDefinition = UnityEditor.AssetDatabase.LoadAssetAtPath<PowerAttackDefinition>(
-                    "Assets/Game/Resources/Combos/FistPowerAttack.asset");
+                    "Assets/_MainGame/Resources/Combos/FistPowerAttack.asset");
             }
 #endif
 

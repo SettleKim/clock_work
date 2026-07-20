@@ -82,7 +82,7 @@ namespace ClockWork.Game
             if (settings == null)
             {
                 settings = UnityEditor.AssetDatabase.LoadAssetAtPath<CombatModeSettings>(
-                    "Assets/Game/Resources/Combat/CombatModeSettings.asset");
+                    "Assets/_MainGame/Resources/Combat/CombatModeSettings.asset");
             }
 #endif
 
