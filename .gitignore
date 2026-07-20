@@ -30,3 +30,8 @@ Thumbs.db
 
 # Crash reports
 sysinfo.txt
+
+# Local junk / backups (not shared)
+__pycache__/
+/Assets/_Recovery/
+/Assets/_Recovery.meta
