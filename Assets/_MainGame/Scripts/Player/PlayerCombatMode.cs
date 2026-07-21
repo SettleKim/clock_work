@@ -32,6 +32,8 @@ namespace ClockWork.Game
         InputAction weaponNextAction;
         InputAction weaponSlot1Action;
         InputAction weaponSlot2Action;
+        InputAction weaponSlot3Action;
+        InputAction weaponSlot4Action;
 
         State state = State.Idle;
         float wCooldownTimer;
@@ -106,6 +108,8 @@ namespace ClockWork.Game
             weaponNextAction = playerInput.actions.FindAction("WeaponNext", false);
             weaponSlot1Action = playerInput.actions.FindAction("WeaponSlot1", false);
             weaponSlot2Action = playerInput.actions.FindAction("WeaponSlot2", false);
+            weaponSlot3Action = playerInput.actions.FindAction("WeaponSlot3", false);
+            weaponSlot4Action = playerInput.actions.FindAction("WeaponSlot4", false);
         }
 
         void Update()
@@ -330,6 +334,18 @@ namespace ClockWork.Game
                 return true;
             }
 
+            if (weaponSlot3Action != null && weaponSlot3Action.WasPressedThisFrame())
+            {
+                ConfirmTapWeaponSlot(2);
+                return true;
+            }
+
+            if (weaponSlot4Action != null && weaponSlot4Action.WasPressedThisFrame())
+            {
+                ConfirmTapWeaponSlot(3);
+                return true;
+            }
+
             return false;
         }
 
@@ -352,6 +368,12 @@ namespace ClockWork.Game
 
             if (weaponSlot2Action != null && weaponSlot2Action.WasPressedThisFrame())
                 weaponController?.TryInstantSwapToIndex(1);
+
+            if (weaponSlot3Action != null && weaponSlot3Action.WasPressedThisFrame())
+                weaponController?.TryInstantSwapToIndex(2);
+
+            if (weaponSlot4Action != null && weaponSlot4Action.WasPressedThisFrame())
+                weaponController?.TryInstantSwapToIndex(3);
 
             if (attackAction != null && attackAction.WasPressedThisFrame())
             {

@@ -13,6 +13,9 @@ namespace ClockWork.Game
 
         static readonly int AttackFistHash = Animator.StringToHash("attack_fist");
         static readonly int AttackFistConHash = Animator.StringToHash("attack_fist_con");
+        static readonly int WeaponHammerHash = Animator.StringToHash("WeaponHammer");
+        static readonly int WeaponGreatswordHash = Animator.StringToHash("WeaponGreatsword");
+        static readonly int WeaponDaggerHash = Animator.StringToHash("WeaponDagger");
 
         [Header("Combo Data")]
         [SerializeField] WeaponDefinition weaponDefinition;
@@ -37,6 +40,7 @@ namespace ClockWork.Game
         Transform hitboxRoot;
         BoxCollider2D hitboxCollider;
         CapsuleCollider2D bodyCollider;
+        Rigidbody2D body;
         DamageDealer hitboxDamage;
         SpriteRenderer hitboxVisual;
 
@@ -70,6 +74,9 @@ namespace ClockWork.Game
             comboDefinition = definition.Combo;
             powerAttackDefinition = definition.PowerAttack;
             ResetComboState();
+            visualAnimator?.SetBool(WeaponHammerHash, definition.WeaponId == "hammer");
+            visualAnimator?.SetBool(WeaponGreatswordHash, definition.WeaponId == "greatsword");
+            visualAnimator?.SetBool(WeaponDaggerHash, definition.WeaponId == "dagger");
         }
 
         public void ConfigureCombo(ComboDefinition definition)
@@ -116,6 +123,7 @@ namespace ClockWork.Game
             grapple = GetComponent<GrapplingHookController>();
             combatMode = GetComponent<PlayerCombatMode>();
             bodyCollider = GetComponent<CapsuleCollider2D>();
+            body = GetComponent<Rigidbody2D>();
             attackAction = playerInput.actions["Attack"];
             characterVisual = GetComponentInChildren<PlayerCharacterVisual>();
             if (characterVisual != null)
@@ -320,10 +328,14 @@ namespace ClockWork.Game
                 visualAnimator.SetTrigger(AttackFistHash);
             }
 
-            ApplyHitboxStep(strike, movement != null ? movement.FacingDirection : 1);
+            int strikeFacing = movement != null ? movement.FacingDirection : 1;
+            ApplyHitboxStep(strike, strikeFacing);
             hitboxDamage.ResetHits();
             hitboxDamage.Configure(ResolveStrikeDamage(strike));
             ApplyHitboxActive(false);
+
+            if (strike.forwardNudge > 0f && body != null)
+                body.linearVelocity = new Vector2(strikeFacing * strike.forwardNudge, body.linearVelocity.y);
 
             float motionHold = strike.motionHold;
             float preBufferWait = Mathf.Max(0f, motionHold - comboInputBuffer);

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d99c0c542eb4eda459f618273c7cbb4b, type: 3}
+  m_Name: Dagger
+  m_EditorClassIdentifier: ClockWork.Game::ClockWork.Game.WeaponDefinition
+  weaponId: dagger
+  displayName: "\uB2E8\uAC80"
+  combo: {fileID: 11400000, guid: e8940d9deca024747917f2c29b643db2, type: 2}
+  powerAttack: {fileID: 0}
+  transitionCombo: {fileID: 0}

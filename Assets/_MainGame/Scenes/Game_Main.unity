@@ -1210,6 +1210,22 @@ MonoBehaviour:
   clampToBounds: 0
   minBounds: {x: -20, y: -6}
   maxBounds: {x: 20, y: 14}
+--- !u!114 &609215562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348376490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dcedb760ff528c4697517044f2472a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: ClockWork.Game::ClockWork.Game.PlayerDash
+  dashSpeed: 16
+  dashDuration: 0.32
+  dashCooldown: 0.54
+  allowAirDash: 1
 --- !u!1 &849520605
 GameObject:
   m_ObjectHideFlags: 0
@@ -1826,7 +1842,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: c2ade81a58d8cff49aab1e10cfc0914b, type: 3}
-  m_Color: {r: 0.22352943, g: 0.21960786, b: 0.2392157, a: 1}
+  m_Color: {r: 0.21176472, g: 0.18431373, b: 0.18431373, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
@@ -1912,6 +1928,7 @@ GameObject:
   - component: {fileID: 1348376495}
   - component: {fileID: 1348376499}
   - component: {fileID: 1348376500}
+  - component: {fileID: 609215562}
   m_Layer: 0
   m_Name: player
   m_TagString: Player

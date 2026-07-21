@@ -10,14 +10,19 @@ namespace ClockWork.Game
     {
         const string FistWeaponResourcePath = "Weapons/Fist";
         const string HammerWeaponResourcePath = "Weapons/Hammer";
+        const string GreatswordWeaponResourcePath = "Weapons/Greatsword";
+        const string DaggerWeaponResourcePath = "Weapons/Dagger";
 
         [SerializeField] WeaponDefinition[] weaponQueue;
 
         PlayerInput playerInput;
         PlayerFistCombat combat;
         PlayerCombatMode combatMode;
+        PlayerHammerGrapple hammerGrapple;
         InputAction weaponSlot1Action;
         InputAction weaponSlot2Action;
+        InputAction weaponSlot3Action;
+        InputAction weaponSlot4Action;
         InputAction weaponNextAction;
         int currentIndex;
 
@@ -63,6 +68,12 @@ namespace ClockWork.Game
             if (weaponSlot2Action != null && weaponSlot2Action.WasPressedThisFrame())
                 TryInstantSwapToIndex(1);
 
+            if (weaponSlot3Action != null && weaponSlot3Action.WasPressedThisFrame())
+                TryInstantSwapToIndex(2);
+
+            if (weaponSlot4Action != null && weaponSlot4Action.WasPressedThisFrame())
+                TryInstantSwapToIndex(3);
+
             if (weaponNextAction != null && weaponNextAction.WasPressedThisFrame())
                 TryInstantSwapToIndex(GetNextIndex());
         }
@@ -88,9 +99,20 @@ namespace ClockWork.Game
             if (equipped != null && equipped.WeaponId == weapon.WeaponId)
                 return false;
 
+            // 특수 전환기: 망치 -> 주먹 = 그래플 이동기 (쌍 기반. 조합이 늘면 테이블화 권장)
+            bool hammerToFist = equipped != null && equipped.WeaponId == "hammer" && weapon.WeaponId == "fist";
+
             combat.ConfigureWeapon(weapon);
             currentIndex = index;
             WeaponChanged?.Invoke(weapon);
+
+            if (hammerToFist)
+            {
+                if (hammerGrapple == null)
+                    hammerGrapple = GetComponent<PlayerHammerGrapple>();
+                if (hammerGrapple != null && hammerGrapple.TryLaunch())
+                    return true;
+            }
 
             if (weapon.TransitionCombo != null)
                 combat.TryPlayTransitionStrike(weapon.TransitionCombo);
@@ -165,6 +187,8 @@ namespace ClockWork.Game
 
             weaponSlot1Action = playerInput.actions.FindAction("WeaponSlot1", false);
             weaponSlot2Action = playerInput.actions.FindAction("WeaponSlot2", false);
+            weaponSlot3Action = playerInput.actions.FindAction("WeaponSlot3", false);
+            weaponSlot4Action = playerInput.actions.FindAction("WeaponSlot4", false);
             weaponNextAction = playerInput.actions.FindAction("WeaponNext", false);
         }
 
@@ -175,6 +199,8 @@ namespace ClockWork.Game
 
             var fist = Resources.Load<WeaponDefinition>(FistWeaponResourcePath);
             var hammer = Resources.Load<WeaponDefinition>(HammerWeaponResourcePath);
+            var greatsword = Resources.Load<WeaponDefinition>(GreatswordWeaponResourcePath);
+            var dagger = Resources.Load<WeaponDefinition>(DaggerWeaponResourcePath);
 
 #if UNITY_EDITOR
             if (fist == null)
@@ -188,10 +214,22 @@ namespace ClockWork.Game
                 hammer = UnityEditor.AssetDatabase.LoadAssetAtPath<WeaponDefinition>(
                     "Assets/_MainGame/Resources/Weapons/Hammer.asset");
             }
+
+            if (greatsword == null)
+            {
+                greatsword = UnityEditor.AssetDatabase.LoadAssetAtPath<WeaponDefinition>(
+                    "Assets/_MainGame/Resources/Weapons/Greatsword.asset");
+            }
+
+            if (dagger == null)
+            {
+                dagger = UnityEditor.AssetDatabase.LoadAssetAtPath<WeaponDefinition>(
+                    "Assets/_MainGame/Resources/Weapons/Dagger.asset");
+            }
 #endif
 
-            if (fist != null && hammer != null)
-                weaponQueue = new[] { fist, hammer };
+            if (fist != null && hammer != null && greatsword != null && dagger != null)
+                weaponQueue = new[] { fist, hammer, greatsword, dagger };
             else
                 Debug.LogWarning("[PlayerWeaponController] Weapon assets missing — queue not built.");
         }

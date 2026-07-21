@@ -21,6 +21,9 @@ namespace ClockWork.Game
 
             [Tooltip("이 타 모션 유지 시간(초). ComboMotionHold")]
             public float motionHold;
+
+            [Tooltip("타격 시 바라보는 방향으로 전진하는 속도(units/s). 0이면 제자리. 단검 찌르기 등에 사용")]
+            public float forwardNudge;
         }
 
         [SerializeField] Step[] steps =

@@ -46,6 +46,9 @@ namespace ClockWork.Game
 #endif
             }
 
+            if (player.GetComponent<PlayerHammerGrapple>() == null)
+                player.AddComponent<PlayerHammerGrapple>();
+
             if (player.GetComponent<PlayerWeaponController>() == null)
                 player.AddComponent<PlayerWeaponController>();
 

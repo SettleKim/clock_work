@@ -39,6 +39,8 @@ namespace ClockWork.Game
         CapsuleCollider2D bodyCollider;
         PlayerInput playerInput;
         GrapplingHookController grapple;
+        PlayerDash dash;
+        PlayerHammerGrapple hammerGrapple;
         PlayerFistCombat fistCombat;
         PlayerCombatMode combatMode;
         PlayerCharacterVisual characterVisual;
@@ -69,6 +71,8 @@ namespace ClockWork.Game
             bodyCollider = GetComponent<CapsuleCollider2D>();
             playerInput = GetComponent<PlayerInput>();
             grapple = GetComponent<GrapplingHookController>();
+            dash = GetComponent<PlayerDash>();
+            hammerGrapple = GetComponent<PlayerHammerGrapple>();
             fistCombat = GetComponent<PlayerFistCombat>();
             combatMode = GetComponent<PlayerCombatMode>();
             characterVisual = GetComponentInChildren<PlayerCharacterVisual>();
@@ -99,6 +103,9 @@ namespace ClockWork.Game
 
             if (fistCombat == null)
                 fistCombat = GetComponent<PlayerFistCombat>();
+
+            if (hammerGrapple == null)
+                hammerGrapple = GetComponent<PlayerHammerGrapple>();
         }
 
         float EffectiveMoveSpeed =>
@@ -106,6 +113,10 @@ namespace ClockWork.Game
 
         bool IsPowerAttackLockingMovement =>
             fistCombat != null && fistCombat.IsPowerAttacking;
+
+        bool IsDashing => dash != null && dash.IsDashing;
+
+        bool IsHammerPulling => hammerGrapple != null && hammerGrapple.IsPulling;
 
 #if UNITY_EDITOR
         void OnValidate()
@@ -186,9 +197,9 @@ namespace ClockWork.Game
                 SetAirJumpEnabled(!airJumpEnabled);
 
             bool blocksJump = (grapple != null && grapple.IsActive && !grapple.AllowsPlayerJump)
-                || IsPowerAttackLockingMovement;
+                || IsPowerAttackLockingMovement || IsDashing || IsHammerPulling;
             bool blocksMovement = (grapple != null && grapple.BlocksPlayerMovement)
-                || IsPowerAttackLockingMovement;
+                || IsPowerAttackLockingMovement || IsDashing || IsHammerPulling;
 
             Vector2 moveInput = moveAction.ReadValue<Vector2>();
             float moveX = blocksMovement ? 0f : moveInput.x;
@@ -218,9 +229,9 @@ namespace ClockWork.Game
         void FixedUpdate()
         {
             bool blocksJump = (grapple != null && grapple.IsActive && !grapple.AllowsPlayerJump)
-                || IsPowerAttackLockingMovement;
+                || IsPowerAttackLockingMovement || IsDashing || IsHammerPulling;
             bool blocksMovement = (grapple != null && grapple.BlocksPlayerMovement)
-                || IsPowerAttackLockingMovement;
+                || IsPowerAttackLockingMovement || IsDashing || IsHammerPulling;
 
             IsGrounded = CheckGrounded();
 
@@ -286,15 +297,18 @@ namespace ClockWork.Game
                 }
             }
 
-            if (rb.linearVelocity.y < 0f)
+            if (!IsDashing && !IsHammerPulling)
             {
-                rb.linearVelocity += Vector2.up * Physics2D.gravity.y *
-                    (fallGravityMultiplier - 1f) * Time.fixedDeltaTime;
-            }
-            else if (rb.linearVelocity.y > 0f && !jumpHeld)
-            {
-                rb.linearVelocity += Vector2.up * Physics2D.gravity.y *
-                    (lowJumpGravityMultiplier - 1f) * Time.fixedDeltaTime;
+                if (rb.linearVelocity.y < 0f)
+                {
+                    rb.linearVelocity += Vector2.up * Physics2D.gravity.y *
+                        (fallGravityMultiplier - 1f) * Time.fixedDeltaTime;
+                }
+                else if (rb.linearVelocity.y > 0f && !jumpHeld)
+                {
+                    rb.linearVelocity += Vector2.up * Physics2D.gravity.y *
+                        (lowJumpGravityMultiplier - 1f) * Time.fixedDeltaTime;
+                }
             }
         }
 

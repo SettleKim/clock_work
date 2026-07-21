@@ -11,6 +11,7 @@ namespace ClockWork.Game
         static readonly int IdleLeftHash = Animator.StringToHash("Idle_Left");
         static readonly int IdleRightHash = Animator.StringToHash("Idle_Right");
         static readonly int WalkHash = Animator.StringToHash("Walk");
+        static readonly int DashHash = Animator.StringToHash("Dash");
 
         [SerializeField] float walkSpeedThreshold = 0.05f;
 
@@ -24,6 +25,17 @@ namespace ClockWork.Game
         {
             isAttacking = attacking;
             if (!attacking)
+                RestoreLocomotionState();
+        }
+
+        public void SetDashing(bool dashing)
+        {
+            if (animator == null)
+                return;
+
+            if (dashing)
+                animator.Play(DashHash, 0, 0f);
+            else
                 RestoreLocomotionState();
         }
 
@@ -68,9 +80,18 @@ namespace ClockWork.Game
 
             var state = animator.GetCurrentAnimatorStateInfo(0);
             return state.IsName("Walk")
+                || state.IsName("Dash")
                 || state.IsName("tick_attack_fist_1")
                 || state.IsName("tick_attack_fist_2")
-                || state.IsName("tick_attack_fist_3");
+                || state.IsName("tick_attack_fist_3")
+                || state.IsName("tick_attack_hammer_1")
+                || state.IsName("tick_attack_hammer_2")
+                || state.IsName("tick_attack_greatsword_1")
+                || state.IsName("tick_attack_greatsword_2")
+                || state.IsName("tick_attack_greatsword_3")
+                || state.IsName("tick_attack_dagger_1")
+                || state.IsName("tick_attack_dagger_2")
+                || state.IsName("tick_attack_dagger_3");
         }
 
         void RestoreLocomotionState()
