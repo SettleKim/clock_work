@@ -45,12 +45,24 @@ namespace ClockWork.Game
         SpriteRenderer hitboxVisual;
 
         PlayerCombatMode combatMode;
+        PlayerBackWeaponVisual backWeaponVisual;
+
+        PlayerBackWeaponVisual BackWeaponVisual
+        {
+            get
+            {
+                if (backWeaponVisual == null)
+                    backWeaponVisual = GetComponentInChildren<PlayerBackWeaponVisual>();
+                return backWeaponVisual;
+            }
+        }
 
         int comboIndex;
         float comboWindowTimer;
         float attackCooldownCounter;
         bool isAttacking;
         bool isPowerAttacking;
+        bool isPlayingTransitionMove;
         bool suppressAnimHitboxEvents;
         bool attackBuffered;
         bool bufferWindowOpen;
@@ -58,6 +70,7 @@ namespace ClockWork.Game
 
         public bool IsAttacking => isAttacking;
         public bool IsPowerAttacking => isPowerAttacking;
+        public bool IsPlayingTransitionMove => isPlayingTransitionMove;
         public bool CanStartPowerAttack =>
             !isAttacking && powerAttackDefinition != null && powerAttackDefinition.PatternLength > 0;
         public ComboDefinition ComboDefinition => comboDefinition;
@@ -77,6 +90,16 @@ namespace ClockWork.Game
             visualAnimator?.SetBool(WeaponHammerHash, definition.WeaponId == "hammer");
             visualAnimator?.SetBool(WeaponGreatswordHash, definition.WeaponId == "greatsword");
             visualAnimator?.SetBool(WeaponDaggerHash, definition.WeaponId == "dagger");
+
+            // 현재 장착한 무기를 등 슬롯에 표시(주먹은 아이콘이 없어 자동으로 숨겨짐).
+            // 공격 모션 중엔 손에 무기가 그려지므로 SetAttackingState(true)가 등 표시를 가린다.
+            BackWeaponVisual?.ShowWeapon(definition);
+        }
+
+        void SetAttackingState(bool attacking)
+        {
+            characterVisual?.SetAttacking(attacking);
+            BackWeaponVisual?.SetHiddenForAttack(attacking);
         }
 
         public void ConfigureCombo(ComboDefinition definition)
@@ -273,7 +296,7 @@ namespace ClockWork.Game
             attackBuffered = false;
             bufferWindowOpen = false;
             ApplyHitboxActive(false);
-            characterVisual?.SetAttacking(false);
+            SetAttackingState(false);
             return true;
         }
 
@@ -287,11 +310,63 @@ namespace ClockWork.Game
             if (!fromInputBuffer && attackCooldownCounter > 0f)
                 return;
 
+            if (weaponDefinition != null && weaponDefinition.WeaponId == "dagger")
+            {
+                attackCoroutine = StartCoroutine(DaggerAutoComboRoutine());
+                comboIndex = 0;
+                comboWindowTimer = comboResetTime;
+                attackCooldownCounter = finisherCooldown;
+                return;
+            }
+
             int hitStep = comboIndex + 1;
             attackCoroutine = StartCoroutine(StrikeRoutine(comboDefinition.GetStep(comboIndex), hitStep));
             comboIndex = (comboIndex + 1) % comboDefinition.StepCount;
             comboWindowTimer = comboResetTime;
             attackCooldownCounter = comboIndex == 0 ? finisherCooldown : comboStepCooldown;
+        }
+
+        IEnumerator DaggerAutoComboRoutine()
+        {
+            isAttacking = true;
+            attackBuffered = false;
+            bufferWindowOpen = false;
+            SetAttackingState(true);
+
+            int facing = movement != null ? movement.FacingDirection : 1;
+            int stepCount = comboDefinition.StepCount;
+
+            for (int i = 0; i < stepCount; i++)
+            {
+                var strike = comboDefinition.GetStep(i);
+
+                if (visualAnimator != null)
+                {
+                    visualAnimator.SetInteger(AttackFistConHash, i + 1);
+                    visualAnimator.SetTrigger(AttackFistHash);
+                }
+
+                ApplyHitboxStep(strike, facing);
+                hitboxDamage.ResetHits();
+                hitboxDamage.Configure(ResolveStrikeDamage(strike));
+
+                if (strike.forwardNudge > 0f && body != null)
+                    body.linearVelocity = new Vector2(facing * strike.forwardNudge, body.linearVelocity.y);
+
+                float hold = strike.motionHold > 0f ? strike.motionHold : 0.1f;
+                yield return new WaitForSeconds(hold);
+            }
+
+            ApplyHitboxActive(false);
+            SetAttackingState(false);
+            isAttacking = false;
+            attackCoroutine = null;
+
+            if (attackBuffered)
+            {
+                attackBuffered = false;
+                TryAttack(fromInputBuffer: true);
+            }
         }
 
         public bool TryStartPowerAttack()
@@ -303,7 +378,7 @@ namespace ClockWork.Game
             return true;
         }
 
-        public bool TryPlayTransitionStrike(ComboDefinition transitionCombo)
+        public bool TryPlayTransitionStrike(ComboDefinition transitionCombo, string animatorStateName = null)
         {
             if (transitionCombo == null || transitionCombo.StepCount == 0)
                 return false;
@@ -311,7 +386,7 @@ namespace ClockWork.Game
             if (isAttacking)
                 return false;
 
-            attackCoroutine = StartCoroutine(TransitionStrikeRoutine(transitionCombo.GetStep(0)));
+            attackCoroutine = StartCoroutine(TransitionStrikeRoutine(transitionCombo, animatorStateName));
             return true;
         }
 
@@ -320,7 +395,7 @@ namespace ClockWork.Game
             isAttacking = true;
             attackBuffered = false;
             bufferWindowOpen = false;
-            characterVisual?.SetAttacking(true);
+            SetAttackingState(true);
 
             if (visualAnimator != null)
             {
@@ -352,7 +427,7 @@ namespace ClockWork.Game
 
             bufferWindowOpen = false;
             ApplyHitboxActive(false);
-            characterVisual?.SetAttacking(false);
+            SetAttackingState(false);
             isAttacking = false;
 
             attackCoroutine = null;
@@ -364,30 +439,43 @@ namespace ClockWork.Game
             }
         }
 
-        IEnumerator TransitionStrikeRoutine(ComboDefinition.Step strike)
+        IEnumerator TransitionStrikeRoutine(ComboDefinition transitionCombo, string animatorStateName)
         {
             isAttacking = true;
+            isPlayingTransitionMove = true;
             attackBuffered = false;
             bufferWindowOpen = false;
-            characterVisual?.SetAttacking(true);
+            SetAttackingState(true);
 
-            if (visualAnimator != null)
+            if (visualAnimator != null && !string.IsNullOrEmpty(animatorStateName))
+                visualAnimator.Play(animatorStateName, 0, 0f);
+
+            int facing = movement != null ? movement.FacingDirection : 1;
+            int stepCount = transitionCombo.StepCount;
+
+            for (int i = 0; i < stepCount; i++)
             {
-                visualAnimator.SetInteger(AttackFistConHash, 1);
-                visualAnimator.SetTrigger(AttackFistHash);
+                var strike = transitionCombo.GetStep(i);
+
+                ApplyHitboxStep(strike, facing);
+                hitboxDamage.ResetHits();
+                hitboxDamage.Configure(ResolveStrikeDamage(strike));
+
+                if (body != null && (strike.forwardNudge > 0f || strike.launchVelocityY != 0f))
+                {
+                    float vx = strike.forwardNudge > 0f ? facing * strike.forwardNudge : body.linearVelocity.x;
+                    float vy = strike.launchVelocityY != 0f ? strike.launchVelocityY : body.linearVelocity.y;
+                    body.linearVelocity = new Vector2(vx, vy);
+                }
+
+                float hold = strike.motionHold > 0f ? strike.motionHold : 0.2f;
+                yield return new WaitForSeconds(hold);
             }
 
-            ApplyHitboxStep(strike, movement != null ? movement.FacingDirection : 1);
-            hitboxDamage.ResetHits();
-            hitboxDamage.Configure(ResolveStrikeDamage(strike));
             ApplyHitboxActive(false);
-
-            float hold = strike.motionHold > 0f ? strike.motionHold : 0.2f;
-            yield return new WaitForSeconds(hold);
-
-            ApplyHitboxActive(false);
-            characterVisual?.SetAttacking(false);
+            SetAttackingState(false);
             isAttacking = false;
+            isPlayingTransitionMove = false;
             attackCoroutine = null;
         }
 
@@ -398,7 +486,7 @@ namespace ClockWork.Game
             suppressAnimHitboxEvents = true;
             attackBuffered = false;
             bufferWindowOpen = false;
-            characterVisual?.SetAttacking(true);
+            SetAttackingState(true);
             ApplyHitboxActive(false);
 
             int facing = movement != null ? movement.FacingDirection : 1;
@@ -439,7 +527,7 @@ namespace ClockWork.Game
             }
 
             ApplyHitboxActive(false);
-            characterVisual?.SetAttacking(false);
+            SetAttackingState(false);
             isAttacking = false;
             isPowerAttacking = false;
             suppressAnimHitboxEvents = false;

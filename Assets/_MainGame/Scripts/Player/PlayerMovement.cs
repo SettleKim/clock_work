@@ -114,6 +114,9 @@ namespace ClockWork.Game
         bool IsPowerAttackLockingMovement =>
             fistCombat != null && fistCombat.IsPowerAttacking;
 
+        bool IsTransitionAttacking =>
+            fistCombat != null && fistCombat.IsPlayingTransitionMove;
+
         bool IsDashing => dash != null && dash.IsDashing;
 
         bool IsHammerPulling => hammerGrapple != null && hammerGrapple.IsPulling;
@@ -197,9 +200,9 @@ namespace ClockWork.Game
                 SetAirJumpEnabled(!airJumpEnabled);
 
             bool blocksJump = (grapple != null && grapple.IsActive && !grapple.AllowsPlayerJump)
-                || IsPowerAttackLockingMovement || IsDashing || IsHammerPulling;
+                || IsPowerAttackLockingMovement || IsDashing || IsHammerPulling || IsTransitionAttacking;
             bool blocksMovement = (grapple != null && grapple.BlocksPlayerMovement)
-                || IsPowerAttackLockingMovement || IsDashing || IsHammerPulling;
+                || IsPowerAttackLockingMovement || IsDashing || IsHammerPulling || IsTransitionAttacking;
 
             Vector2 moveInput = moveAction.ReadValue<Vector2>();
             float moveX = blocksMovement ? 0f : moveInput.x;
@@ -229,9 +232,9 @@ namespace ClockWork.Game
         void FixedUpdate()
         {
             bool blocksJump = (grapple != null && grapple.IsActive && !grapple.AllowsPlayerJump)
-                || IsPowerAttackLockingMovement || IsDashing || IsHammerPulling;
+                || IsPowerAttackLockingMovement || IsDashing || IsHammerPulling || IsTransitionAttacking;
             bool blocksMovement = (grapple != null && grapple.BlocksPlayerMovement)
-                || IsPowerAttackLockingMovement || IsDashing || IsHammerPulling;
+                || IsPowerAttackLockingMovement || IsDashing || IsHammerPulling || IsTransitionAttacking;
 
             IsGrounded = CheckGrounded();
 
@@ -297,7 +300,7 @@ namespace ClockWork.Game
                 }
             }
 
-            if (!IsDashing && !IsHammerPulling)
+            if (!IsDashing && !IsHammerPulling && !IsTransitionAttacking)
             {
                 if (rb.linearVelocity.y < 0f)
                 {

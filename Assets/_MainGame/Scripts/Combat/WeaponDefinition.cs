@@ -9,12 +9,14 @@ namespace ClockWork.Game
         [SerializeField] string displayName = "Fist";
         [SerializeField] ComboDefinition combo;
         [SerializeField] PowerAttackDefinition powerAttack;
-        [SerializeField] ComboDefinition transitionCombo;
+        [SerializeField] Sprite backIcon;
+        [SerializeField] Vector2 backAttachOffset = Vector2.zero;
 
         public string WeaponId => weaponId;
         public string DisplayName => displayName;
         public ComboDefinition Combo => combo;
         public PowerAttackDefinition PowerAttack => powerAttack;
-        public ComboDefinition TransitionCombo => transitionCombo;
+        public Sprite BackIcon => backIcon;
+        public Vector2 BackAttachOffset => backAttachOffset;
     }
 }

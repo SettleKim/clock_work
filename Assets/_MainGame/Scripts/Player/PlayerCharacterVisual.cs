@@ -80,6 +80,8 @@ namespace ClockWork.Game
 
             var state = animator.GetCurrentAnimatorStateInfo(0);
             return state.IsName("Walk")
+                || state.IsName("Idle_Left")
+                || state.IsName("Idle_Right")
                 || state.IsName("Dash")
                 || state.IsName("tick_attack_fist_1")
                 || state.IsName("tick_attack_fist_2")
@@ -91,7 +93,11 @@ namespace ClockWork.Game
                 || state.IsName("tick_attack_greatsword_3")
                 || state.IsName("tick_attack_dagger_1")
                 || state.IsName("tick_attack_dagger_2")
-                || state.IsName("tick_attack_dagger_3");
+                || state.IsName("tick_attack_dagger_3")
+                || state.IsName("HammerTransitionAttack")
+                || state.IsName("FistTransitionAttack")
+                || state.IsName("GreatswordTransitionAttack")
+                || state.IsName("DaggerTransitionAttack");
         }
 
         void RestoreLocomotionState()

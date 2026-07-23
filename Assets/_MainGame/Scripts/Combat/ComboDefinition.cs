@@ -24,6 +24,9 @@ namespace ClockWork.Game
 
             [Tooltip("타격 시 바라보는 방향으로 전진하는 속도(units/s). 0이면 제자리. 단검 찌르기 등에 사용")]
             public float forwardNudge;
+
+            [Tooltip("이 스텝 시작 시 수직 속도(units/s). 0이면 기존 낙하/점프 속도 유지. 점프 후 내려베기 등 스크립트 이동기에 사용")]
+            public float launchVelocityY;
         }
 
         [SerializeField] Step[] steps =

@@ -2,7 +2,8 @@
     "name": "ClockWork.Game",
     "rootNamespace": "ClockWork.Game",
     "references": [
-        "Unity.InputSystem"
+        "Unity.InputSystem",
+        "Unity.2D.Animation.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

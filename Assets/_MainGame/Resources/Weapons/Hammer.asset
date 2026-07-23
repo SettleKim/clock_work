@@ -16,4 +16,6 @@ MonoBehaviour:
   displayName: "\uB9DD\uCE58"
   combo: {fileID: 11400000, guid: c2d3e4f5a6b748901234abcdef060602, type: 2}
   powerAttack: {fileID: 0}
-  transitionCombo: {fileID: 11400000, guid: 6f209eb2c09c44619cc3650a9052aebc, type: 2}
+  transitionCombo: {fileID: 11400000, guid: 4d6e00f61b3b80c4a827e0f9ae428a19, type: 2}
+  backIcon: {fileID: 21300000, guid: 5dd330f5367db3c4badd56e645671032, type: 3}
+  backAttachOffset: {x: 0, y: 0}

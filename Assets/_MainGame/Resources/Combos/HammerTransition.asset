@@ -14,7 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: ClockWork.Game::ClockWork.Game.ComboDefinition
   steps:
   - hitboxOffset: {x: 0.9, y: 0.85}
-    hitboxSize: {x: 1.2, y: 1.0}
+    hitboxSize: {x: 0.9, y: 0.7}
     useRightHand: 1
     damage: 1
-    motionHold: 0.35
+    motionHold: 0.12
+    forwardNudge: 0.5
+  - hitboxOffset: {x: 0.9, y: 0.85}
+    hitboxSize: {x: 0.9, y: 0.7}
+    useRightHand: 0
+    damage: 1
+    motionHold: 0.12
+    forwardNudge: 0.5
+  - hitboxOffset: {x: 0.9, y: 0.85}
+    hitboxSize: {x: 0.9, y: 0.7}
+    useRightHand: 1
+    damage: 1
+    motionHold: 0.12
+    forwardNudge: 0.5
+  - hitboxOffset: {x: 0.9, y: 0.85}
+    hitboxSize: {x: 1.2, y: 1}
+    useRightHand: 1
+    damage: 2
+    motionHold: 0.4
+    forwardNudge: 0

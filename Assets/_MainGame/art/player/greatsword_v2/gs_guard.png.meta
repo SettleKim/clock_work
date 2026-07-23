@@ -1,0 +1,247 @@
+fileFormatVersion: 2
+guid: c90138894116e4b43a6cc5b2c6411441
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1169487155545810622
+    second: gs_guard_0
+  - first:
+      213: -345025096657285627
+    second: gs_guard_1
+  - first:
+      213: -1575017188303538830
+    second: gs_guard_2
+  - first:
+      213: -2032376446791128740
+    second: gs_guard_3
+  - first:
+      213: 8218946274584690175
+    second: gs_guard_4
+  - first:
+      213: 1650840832114969451
+    second: gs_guard_5
+  - first:
+      213: -5515359529954988263
+    second: gs_guard_6
+  - first:
+      213: 2343944726786769905
+    second: gs_guard_7
+  - first:
+      213: -383530016376381936
+    second: gs_guard_8
+  - first:
+      213: 4007379207720800609
+    second: gs_guard_9
+  - first:
+      213: -6933949606759895044
+    second: gs_guard_10
+  - first:
+      213: -378152043704785179
+    second: gs_guard_11
+  - first:
+      213: 7866733065323697370
+    second: gs_guard_12
+  - first:
+      213: -1227225183496530516
+    second: gs_guard_13
+  - first:
+      213: 6114821079124714125
+    second: gs_guard_14
+  - first:
+      213: 3051826641800261088
+    second: gs_guard_15
+  - first:
+      213: -4925348485015640813
+    second: gs_guard_16
+  - first:
+      213: -3468135680635741946
+    second: gs_guard_17
+  - first:
+      213: -1244097390615589653
+    second: gs_guard_18
+  - first:
+      213: 825600304950007949
+    second: gs_guard_19
+  - first:
+      213: -572913169207278707
+    second: gs_guard_20
+  - first:
+      213: 8350190989312364396
+    second: gs_guard_21
+  - first:
+      213: -5811306020258575251
+    second: gs_guard_22
+  - first:
+      213: 3276322621691606344
+    second: gs_guard_23
+  - first:
+      213: 8930706969004982851
+    second: gs_guard_24
+  - first:
+      213: -236570059518219277
+    second: gs_guard_25
+  - first:
+      213: -3525970446648912661
+    second: gs_guard_26
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.018867925}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: gs_guard
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 259
+        height: 211
+      alignment: 9
+      pivot: {x: 0.5, y: 0.023696683}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      gs_guard_0: 1169487155545810622
+      gs_guard_1: -345025096657285627
+      gs_guard_10: -6933949606759895044
+      gs_guard_11: -378152043704785179
+      gs_guard_12: 7866733065323697370
+      gs_guard_13: -1227225183496530516
+      gs_guard_14: 6114821079124714125
+      gs_guard_15: 3051826641800261088
+      gs_guard_16: -4925348485015640813
+      gs_guard_17: -3468135680635741946
+      gs_guard_18: -1244097390615589653
+      gs_guard_19: 825600304950007949
+      gs_guard_2: -1575017188303538830
+      gs_guard_20: -572913169207278707
+      gs_guard_21: 8350190989312364396
+      gs_guard_22: -5811306020258575251
+      gs_guard_23: 3276322621691606344
+      gs_guard_24: 8930706969004982851
+      gs_guard_25: -236570059518219277
+      gs_guard_26: -3525970446648912661
+      gs_guard_3: -2032376446791128740
+      gs_guard_4: 8218946274584690175
+      gs_guard_5: 1650840832114969451
+      gs_guard_6: -5515359529954988263
+      gs_guard_7: 2343944726786769905
+      gs_guard_8: -383530016376381936
+      gs_guard_9: 4007379207720800609
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

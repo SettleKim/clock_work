@@ -2637,7 +2637,7 @@ MonoBehaviour:
   kind: 0
   useRadius: 8
   ropeSnapDuration: 0.12
-  attachOffset: {x: 0, y: 0}
+  attachOffset: {x: 0, y: -0.85}
   launchDirection: {x: 1, y: 0.5}
   launchSpeed: 28
 --- !u!212 &1505325808
@@ -2947,7 +2947,7 @@ MonoBehaviour:
   kind: 0
   useRadius: 8
   ropeSnapDuration: 0.12
-  attachOffset: {x: 0, y: 0}
+  attachOffset: {x: 0, y: -0.85}
   launchDirection: {x: 1, y: 0.5}
   launchSpeed: 28
 --- !u!212 &1663224134
@@ -3153,7 +3153,7 @@ MonoBehaviour:
   kind: 0
   useRadius: 8
   ropeSnapDuration: 0.12
-  attachOffset: {x: 0, y: 0}
+  attachOffset: {x: 0, y: -0.85}
   launchDirection: {x: 1, y: 0.5}
   launchSpeed: 28
 --- !u!212 &1744740260

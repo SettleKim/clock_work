@@ -14,6 +14,31 @@ namespace ClockWork.Game
             Transform visualTransform = FindOrCreateVisual(player);
             ConfigureComponents(visualTransform);
             DisableRootSprite(player);
+            EnsureBackWeaponSlot(player);
+        }
+
+        static void EnsureBackWeaponSlot(GameObject player)
+        {
+            Transform backTransform = player.transform.Find("BackWeaponSlot");
+            if (backTransform == null)
+            {
+                var backObject = new GameObject("BackWeaponSlot");
+                backTransform = backObject.transform;
+                backTransform.SetParent(player.transform);
+                backTransform.localPosition = new Vector3(0f, 2.4f, 0f);
+                backTransform.localRotation = Quaternion.identity;
+                backTransform.localScale = Vector3.one;
+            }
+
+            var backObject2 = backTransform.gameObject;
+            if (backObject2.GetComponent<SpriteRenderer>() == null)
+                backObject2.AddComponent<SpriteRenderer>();
+            if (backObject2.GetComponent<PlayerBackWeaponVisual>() == null)
+                backObject2.AddComponent<PlayerBackWeaponVisual>();
+
+            var backSprite = backObject2.GetComponent<SpriteRenderer>();
+            backSprite.sortingOrder = 9;
+            backSprite.enabled = false;
         }
 
         static Transform FindOrCreateVisual(GameObject player)

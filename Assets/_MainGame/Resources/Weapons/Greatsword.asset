@@ -16,4 +16,6 @@ MonoBehaviour:
   displayName: "\uB300\uAC80"
   combo: {fileID: 11400000, guid: d137f1f134073b84ab27cea86abb4366, type: 2}
   powerAttack: {fileID: 0}
-  transitionCombo: {fileID: 0}
+  transitionCombo: {fileID: 11400000, guid: 4d6e00f61b3b80c4a827e0f9ae428a19, type: 2}
+  backIcon: {fileID: 21300000, guid: d3da544768f4894488529be3c5673d49, type: 3}
+  backAttachOffset: {x: 0, y: 0}

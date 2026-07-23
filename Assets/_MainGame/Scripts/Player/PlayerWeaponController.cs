@@ -12,13 +12,14 @@ namespace ClockWork.Game
         const string HammerWeaponResourcePath = "Weapons/Hammer";
         const string GreatswordWeaponResourcePath = "Weapons/Greatsword";
         const string DaggerWeaponResourcePath = "Weapons/Dagger";
+        const string TransitionTableResourcePath = "Combat/WeaponTransitionTable";
 
         [SerializeField] WeaponDefinition[] weaponQueue;
+        [SerializeField] WeaponTransitionTable transitionTable;
 
         PlayerInput playerInput;
         PlayerFistCombat combat;
         PlayerCombatMode combatMode;
-        PlayerHammerGrapple hammerGrapple;
         InputAction weaponSlot1Action;
         InputAction weaponSlot2Action;
         InputAction weaponSlot3Action;
@@ -39,6 +40,7 @@ namespace ClockWork.Game
             combatMode = GetComponent<PlayerCombatMode>();
             BindInputActions();
             ResolveWeaponAssets();
+            ResolveTransitionTable();
         }
 
         void OnEnable()
@@ -99,23 +101,18 @@ namespace ClockWork.Game
             if (equipped != null && equipped.WeaponId == weapon.WeaponId)
                 return false;
 
-            // 특수 전환기: 망치 -> 주먹 = 그래플 이동기 (쌍 기반. 조합이 늘면 테이블화 권장)
-            bool hammerToFist = equipped != null && equipped.WeaponId == "hammer" && weapon.WeaponId == "fist";
+            WeaponDefinition previousWeapon = equipped;
 
             combat.ConfigureWeapon(weapon);
             currentIndex = index;
             WeaponChanged?.Invoke(weapon);
 
-            if (hammerToFist)
+            // 무기 쌍(순서 무관) 테이블에 등록된 조합만 특수 전환 콤보가 나간다.
+            if (transitionTable != null
+                && transitionTable.TryGetTransition(previousWeapon, weapon, out var combo, out var stateName))
             {
-                if (hammerGrapple == null)
-                    hammerGrapple = GetComponent<PlayerHammerGrapple>();
-                if (hammerGrapple != null && hammerGrapple.TryLaunch())
-                    return true;
+                combat.TryPlayTransitionStrike(combo, stateName);
             }
-
-            if (weapon.TransitionCombo != null)
-                combat.TryPlayTransitionStrike(weapon.TransitionCombo);
 
             return true;
         }
@@ -170,12 +167,17 @@ namespace ClockWork.Game
             if (equipped != null && equipped.WeaponId == weapon.WeaponId)
                 return false;
 
+            WeaponDefinition previousWeapon = equipped;
+
             combat.ConfigureWeapon(weapon);
             currentIndex = index;
             WeaponChanged?.Invoke(weapon);
 
-            if (playTransition && weapon.TransitionCombo != null)
-                combat.TryPlayTransitionStrike(weapon.TransitionCombo);
+            if (playTransition && transitionTable != null
+                && transitionTable.TryGetTransition(previousWeapon, weapon, out var combo, out var stateName))
+            {
+                combat.TryPlayTransitionStrike(combo, stateName);
+            }
 
             return true;
         }
@@ -190,6 +192,22 @@ namespace ClockWork.Game
             weaponSlot3Action = playerInput.actions.FindAction("WeaponSlot3", false);
             weaponSlot4Action = playerInput.actions.FindAction("WeaponSlot4", false);
             weaponNextAction = playerInput.actions.FindAction("WeaponNext", false);
+        }
+
+        void ResolveTransitionTable()
+        {
+            if (transitionTable != null)
+                return;
+
+            transitionTable = Resources.Load<WeaponTransitionTable>(TransitionTableResourcePath);
+
+#if UNITY_EDITOR
+            if (transitionTable == null)
+            {
+                transitionTable = UnityEditor.AssetDatabase.LoadAssetAtPath<WeaponTransitionTable>(
+                    "Assets/_MainGame/Resources/Combat/WeaponTransitionTable.asset");
+            }
+#endif
         }
 
         void ResolveWeaponAssets()

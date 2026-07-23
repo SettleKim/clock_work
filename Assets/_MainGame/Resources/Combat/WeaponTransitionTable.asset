@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd646e38ca5f9dd45bb8cf5acae94694, type: 3}
+  m_Name: WeaponTransitionTable
+  m_EditorClassIdentifier: ClockWork.Game::ClockWork.Game.WeaponTransitionTable
+  entries:
+  - weaponA: {fileID: 11400000, guid: f1a2b3c4d5e6478901234abcdef01020, type: 2}
+    weaponB: {fileID: 11400000, guid: d52c11ea1c85aa44ebf9b37a9618e605, type: 2}
+    combo: {fileID: 11400000, guid: 4d6e00f61b3b80c4a827e0f9ae428a19, type: 2}
+    animatorStateName: GreatswordTransitionAttack
+  - weaponA: {fileID: 11400000, guid: f1a2b3c4d5e6478901234abcdef01020, type: 2}
+    weaponB: {fileID: 11400000, guid: d3e4f5a6b7c849012345abcdef060703, type: 2}
+    combo: {fileID: 11400000, guid: 6f209eb2c09c44619cc3650a9052aebc, type: 2}
+    animatorStateName: HammerTransitionAttack

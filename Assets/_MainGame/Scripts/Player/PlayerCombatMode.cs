@@ -13,9 +13,7 @@ namespace ClockWork.Game
         enum State
         {
             Idle,
-            TapWindow,
-            HoldDrain,
-            WListeningDuringAttack
+            ToggleActive
         }
 
         const string DefaultSettingsResourcePath = "Combat/CombatModeSettings";
@@ -37,19 +35,19 @@ namespace ClockWork.Game
 
         State state = State.Idle;
         float wCooldownTimer;
-        float tapWindowTimer;
-        float wPressTime;
-        bool wHeld;
-        bool holdThresholdTriggered;
 
-        public bool IsTapWindow => state == State.TapWindow;
-        public bool IsInCombatMode => state == State.TapWindow || state == State.HoldDrain;
-        public bool BlocksGrapple => state == State.TapWindow;
+        public bool IsTapWindow => state == State.ToggleActive;
+        public bool IsInCombatMode => state == State.ToggleActive;
+        // 예전 TapWindow(짧은 판정 순간)만 갈고리를 막았고, 지속 홀드 중엔 막지 않았음.
+        // 지금 토글은 그 지속 홀드에 해당하므로 갈고리를 막지 않는다.
+        public bool BlocksGrapple => false;
         public float HoldMoveSpeedBonus =>
-            state == State.HoldDrain && settings != null ? settings.HoldMoveSpeedBonus : 0f;
+            state == State.ToggleActive && settings != null ? settings.HoldMoveSpeedBonus : 0f;
+
+        // 토글 상태에선 더 이상 시간제한이 없어서, 남은 에너지 비율을 보여준다 (UI 게이지 용도 재사용).
         public float TapWindowNormalized =>
-            settings != null && settings.TapWindowDuration > 0f
-                ? Mathf.Clamp01(tapWindowTimer / settings.TapWindowDuration)
+            energyGauge != null && energyGauge.MaxEnergy > 0f
+                ? Mathf.Clamp01(energyGauge.CurrentEnergy / energyGauge.MaxEnergy)
                 : 0f;
 
         void Awake()
@@ -118,7 +116,6 @@ namespace ClockWork.Game
                 return;
 
             TickCooldown();
-            TickTapWindow();
 
             switch (state)
             {
@@ -126,24 +123,10 @@ namespace ClockWork.Game
                     HandleIdleWInput();
                     break;
 
-                case State.TapWindow:
-                    HandleTapWindowInput();
-                    break;
-
-                case State.HoldDrain:
-                    HandleHoldDrainInput();
-                    break;
-
-                case State.WListeningDuringAttack:
-                    HandleAttackCancelWInput();
+                case State.ToggleActive:
+                    HandleToggleActiveInput();
                     break;
             }
-        }
-
-        void LateUpdate()
-        {
-            if (state == State.WListeningDuringAttack && !wHeld && !fistCombat.IsAttacking)
-                state = State.Idle;
         }
 
         void TickCooldown()
@@ -152,155 +135,35 @@ namespace ClockWork.Game
                 wCooldownTimer -= Time.unscaledDeltaTime;
         }
 
-        void TickTapWindow()
-        {
-            if (state != State.TapWindow)
-                return;
-
-            tapWindowTimer -= Time.unscaledDeltaTime;
-            if (tapWindowTimer <= 0f)
-                EndTapWindowTimeout();
-        }
-
         void HandleIdleWInput()
         {
-            if (combatModeAction == null)
+            if (combatModeAction == null || !combatModeAction.WasPressedThisFrame())
                 return;
 
-            if (combatModeAction.WasPressedThisFrame())
-            {
-                wPressTime = Time.unscaledTime;
-                wHeld = true;
-                holdThresholdTriggered = false;
-
-                if (fistCombat.IsAttacking)
-                    state = State.WListeningDuringAttack;
-            }
-
-            if (!wHeld)
+            // 공격 중에 눌렀으면 먼저 공격을 취소하고 토글 진입을 시도한다.
+            if (fistCombat.IsAttacking && !fistCombat.CancelAttack())
                 return;
 
-            if (state == State.WListeningDuringAttack)
-                return;
-
-            if (combatModeAction.IsPressed())
-            {
-                if (!holdThresholdTriggered
-                    && Time.unscaledTime - wPressTime >= settings.HoldThreshold)
-                {
-                    holdThresholdTriggered = true;
-                    TryEnterHoldFromIdle();
-                }
-
-                return;
-            }
-
-            if (combatModeAction.WasReleasedThisFrame())
-            {
-                wHeld = false;
-                float held = Time.unscaledTime - wPressTime;
-                if (held < settings.HoldThreshold)
-                    TryEnterTapFromIdle();
-            }
+            TryEnterToggle();
         }
 
-        void HandleAttackCancelWInput()
-        {
-            if (combatModeAction == null)
-                return;
-
-            if (combatModeAction.WasPressedThisFrame())
-            {
-                wPressTime = Time.unscaledTime;
-                wHeld = true;
-                holdThresholdTriggered = false;
-            }
-
-            if (!wHeld)
-                return;
-
-            if (combatModeAction.IsPressed())
-            {
-                if (!holdThresholdTriggered
-                    && Time.unscaledTime - wPressTime >= settings.HoldThreshold)
-                {
-                    holdThresholdTriggered = true;
-                    TryCancelAttackIntoHold();
-                }
-
-                return;
-            }
-
-            if (combatModeAction.WasReleasedThisFrame())
-            {
-                wHeld = false;
-                float held = Time.unscaledTime - wPressTime;
-                if (held < settings.HoldThreshold)
-                    TryCancelAttackIntoTap();
-                else
-                    state = State.Idle;
-            }
-        }
-
-        void TryEnterTapFromIdle()
+        void TryEnterToggle()
         {
             if (wCooldownTimer > 0f || !energyGauge.HasEnough(settings.TapEntryCost))
                 return;
 
-            EnterTapWindow();
+            state = State.ToggleActive;
+            CombatSlowMotion.Enter(settings.SlowMotionScale);
         }
 
-        void TryEnterHoldFromIdle()
+        void HandleToggleActiveInput()
         {
-            if (wCooldownTimer > 0f
-                || settings.HoldEntryCost <= 0f
-                || !energyGauge.HasEnough(settings.HoldEntryCost))
+            if (!energyGauge.DrainContinuous(settings.HoldDrainPerSecond, Time.unscaledDeltaTime))
             {
-                wHeld = false;
+                ExitCombatMode();
                 return;
             }
 
-            EnterHoldDrain();
-        }
-
-        void TryCancelAttackIntoTap()
-        {
-            if (!energyGauge.HasEnough(settings.TapEntryCost))
-            {
-                state = State.Idle;
-                return;
-            }
-
-            if (!fistCombat.CancelAttack())
-            {
-                state = State.Idle;
-                return;
-            }
-
-            EnterTapWindow();
-        }
-
-        void TryCancelAttackIntoHold()
-        {
-            if (settings.HoldEntryCost <= 0f || !energyGauge.HasEnough(settings.HoldEntryCost))
-            {
-                wHeld = false;
-                state = State.Idle;
-                return;
-            }
-
-            if (!fistCombat.CancelAttack())
-            {
-                wHeld = false;
-                state = State.Idle;
-                return;
-            }
-
-            EnterHoldDrain();
-        }
-
-        void HandleTapWindowInput()
-        {
             if (TryHandlePriorityTapInput())
                 return;
 
@@ -349,58 +212,6 @@ namespace ClockWork.Game
             return false;
         }
 
-        void HandleHoldDrainInput()
-        {
-            if (!energyGauge.DrainContinuous(settings.HoldDrainPerSecond, Time.unscaledDeltaTime))
-            {
-                ExitCombatMode();
-                return;
-            }
-
-            if (combatModeAction != null && !combatModeAction.IsPressed())
-            {
-                ExitCombatMode();
-                return;
-            }
-
-            if (weaponSlot1Action != null && weaponSlot1Action.WasPressedThisFrame())
-                weaponController?.TryInstantSwapToIndex(0);
-
-            if (weaponSlot2Action != null && weaponSlot2Action.WasPressedThisFrame())
-                weaponController?.TryInstantSwapToIndex(1);
-
-            if (weaponSlot3Action != null && weaponSlot3Action.WasPressedThisFrame())
-                weaponController?.TryInstantSwapToIndex(2);
-
-            if (weaponSlot4Action != null && weaponSlot4Action.WasPressedThisFrame())
-                weaponController?.TryInstantSwapToIndex(3);
-
-            if (attackAction != null && attackAction.WasPressedThisFrame())
-            {
-                ExitCombatMode();
-                fistCombat.TryAttackFromCombatMode();
-                return;
-            }
-        }
-
-        void EnterTapWindow()
-        {
-            state = State.TapWindow;
-            tapWindowTimer = settings.TapWindowDuration;
-            wHeld = false;
-            CombatSlowMotion.Enter(settings.SlowMotionScale);
-        }
-
-        void EnterHoldDrain()
-        {
-            if (settings.HoldEntryCost <= 0f || !energyGauge.HasEnough(settings.HoldEntryCost))
-                return;
-
-            state = State.HoldDrain;
-            wHeld = false;
-            CombatSlowMotion.Enter(settings.SlowMotionScale);
-        }
-
         void ConfirmTapPowerAttack()
         {
             if (!fistCombat.CanStartPowerAttack)
@@ -446,12 +257,6 @@ namespace ClockWork.Game
             ExitCombatMode();
         }
 
-        void EndTapWindowTimeout()
-        {
-            energyGauge.TrySpend(settings.TapTimeoutCost);
-            ExitCombatMode();
-        }
-
         void EndTapWindowCancel()
         {
             energyGauge.TrySpend(settings.TapTimeoutCost);
@@ -460,20 +265,16 @@ namespace ClockWork.Game
 
         void ExitCombatMode()
         {
-            if (state == State.TapWindow || state == State.HoldDrain)
+            if (state == State.ToggleActive)
                 CombatSlowMotion.Exit();
 
             state = State.Idle;
-            wHeld = false;
-            holdThresholdTriggered = false;
             wCooldownTimer = settings.WCooldownDuration;
         }
 
         public bool ShouldBlockNormalAttackInput()
         {
-            return state == State.TapWindow
-                || state == State.WListeningDuringAttack
-                || state == State.HoldDrain;
+            return state == State.ToggleActive;
         }
     }
 }
